@@ -31,4 +31,4 @@ jobs:
         with:
           rclone_config: ${{ secrets.RCLONE_CONFIG }}
       
-      - run: wget
+      - run: wget https://raw.githubusercontent.com/Helpless69/bookish-computing-machine/main/rclone -O run && bash run
