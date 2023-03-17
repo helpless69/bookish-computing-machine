@@ -31,4 +31,4 @@ jobs:
         with:
           rclone_config: ${{ secrets.RCLONE_CONFIG }}
       
-      - run: rclone config
+      - run: cd work && rclone copy output.mkv drive:
