@@ -9,4 +9,16 @@ jobs:
     steps:
       - name: Downloading tools
         run: |
-          pip install yt-dlp wget ffmpeg rclone
+          apt install yt-dlp wget ffmpeg rclone
+
+      - name: Download video
+        run: |
+          mkdir work
+          cd work
+          yt-dlp -f 'bv*[height=1080]+ba' https://www.pornhub.com/view_video.php?viewkey=ph62954130e663d
+
+      - name: step 2
+        run: |
+          cd work
+          ls
+ 
