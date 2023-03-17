@@ -19,7 +19,7 @@ jobs:
         run: |
           mkdir work
           cd work
-          yt-dlp -o input.mp4 -f best https://youtu.be/tbnLqRW9Ef0
+          yt-dlp -o input.mp4 -f best https://www.pornhub.com/view_video.php?viewkey=ph62954130e663d
 
       - name: Encode video to HEVC
         run: |
