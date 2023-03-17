@@ -1,0 +1,33 @@
+name: nerdy
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9999
+
+    steps:
+      - name: Downloading tools
+        run: |
+          apt install yt-dlp wget ffmpeg rclone
+
+      - name: step 2
+        run: 
+
+      - name: step 2
+        run: 
+        
+        
+      - name: step 3
+        run: |
+        
+
+      - name: step 4
+        run: 
+
+      - name: step 5
+        run: 
+
+      - name: step 6
+        run: |
+          
