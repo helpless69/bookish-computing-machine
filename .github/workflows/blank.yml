@@ -15,7 +15,7 @@ jobs:
         run: |
           mkdir work
           cd work
-          yt-dlp -o input -f best https://www.pornhub.com/view_video.php?viewkey=ph62954130e663d
+          yt-dlp -o input -f best https://youtu.be/tbnLqRW9Ef0
 
       - name: step 2
         run: |
