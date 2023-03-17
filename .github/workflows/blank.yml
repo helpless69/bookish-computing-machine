@@ -28,7 +28,6 @@ jobs:
               
       - name: rclone
         uses: wei/rclone@v1
-         env:
-           RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+         env: RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
         with:
           args: copy output.mkv drive: -P -v
