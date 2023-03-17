@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Downloading tools
         run: |
-          apt install yt-dlp wget ffmpeg rclone
+          pip install yt-dlp wget ffmpeg rclone
 
       - name: Download video
         run: |
