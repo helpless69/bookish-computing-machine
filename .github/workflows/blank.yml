@@ -19,12 +19,12 @@ jobs:
         run: |
           mkdir work
           cd work
-          yt-dlp -o input.mp4 -f best https://www.pornhub.com/view_video.php?viewkey=ph62954130e663d
+          yt-dlp -o input.mp4 -S "res:720" https://www.pornhub.com/view_video.php?viewkey=ph62954130e663d
 
       - name: Encode video to HEVC
         run: |
           cd work && pwd
-          ffmpeg -i input.mp4 -map 0 -tune grain -c:v libx265 -pix_fmt yuv420p10le -crf 28 -c:a aac -b:a 128k output.mkv   
+          ffmpeg -i input.mp4 -map 0 -tune grain -c:v libx265 -pix_fmt yuv420p10le -crf 24 -c:a aac -b:a 128k output.mkv   
  
       - name: Setup Rclone
         uses: AnimMouse/setup-rclone@v1
