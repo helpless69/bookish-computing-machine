@@ -19,7 +19,7 @@ jobs:
         run: |
           mkdir work
           cd work
-          yt-dlp -o input.mp4 -f best https://youtu.be/BNw6r-DBM78
+          yt-dlp -o input.mp4 -f best https://www.eporner.com/dload/XTAcmbKJ5Vd/1080/7780911-1080p.mp4
 
       - name: Encode video to HEVC
         run: |
