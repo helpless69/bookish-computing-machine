@@ -19,7 +19,7 @@ jobs:
         run: |
           mkdir work
           cd work
-          yt-dlp -o input.mp4 https://www.eporner.com/dload/63L6k0apT6C/1080/7578697-1080p.mp4
+          yt-dlp -o input.mp4 https://www.eporner.com/video-63L6k0apT6C/hardcore-sex-with-young-babe/
 
       - name: Encode video to HEVC
         run: |
