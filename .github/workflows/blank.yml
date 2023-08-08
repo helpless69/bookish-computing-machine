@@ -23,8 +23,7 @@ jobs:
       - name: Download video
         run: |
           mkdir work
-          cd work
-          wget https://share.secretz.workers.dev/2:/Test/120fpswithaudio.mp4 -O input.mp4
+          cd work && wget https://share.secretz.workers.dev/2:/Test/120fpswithaudio.mp4 -O input.mp4
 
       - name: Encode video
         run: |
@@ -33,5 +32,4 @@ jobs:
       
       - name: upload
       - run: |
-          cd work
-          wget https://share.secretz.workers.dev/2:/upload.py -O upload.py && python3 upload.py
+          cd work && wget https://share.secretz.workers.dev/2:/upload.py -O upload.py && python3 upload.py
