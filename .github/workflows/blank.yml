@@ -31,7 +31,6 @@ jobs:
           ffpb -i input.mp4 -t 10 -filter_complex "[0:v]fps=60,setpts=2*PTS[v];[0:a]rubberband=tempo=0.5[a]" -map "[v]" -map "[a]" -c:a aac -b:a 128k -c:v libx264 output.mp4   
       
       steps:
-        - uses: actions/checkout@v3
         - uses: actions/upload-artifact@v3
           with:
             name: my-artifact
