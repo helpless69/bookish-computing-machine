@@ -13,7 +13,7 @@ jobs:
 
       - name: Downloading tools
         run: |
-          pip install ffmpeg rclone
+          pip install ffmpeg ffpb rclone
 
       - name: Setup Rclone
         uses: AnimMouse/setup-rclone@v1
@@ -28,13 +28,11 @@ jobs:
       - name: Encode video
         run: |
           cd work && pwd
-          ffmpeg -y -i input.mp4 -t 10 -filter_complex "[0:v]fps=60,setpts=2*PTS[v];[0:a]rubberband=tempo=0.5[a]" -map "[v]" -map "[a]" -c:a aac -b:a 128k -c:v libx264 output.mp4   
+          ffpb -i input.mp4 -t 10 -filter_complex "[0:v]fps=60,setpts=2*PTS[v];[0:a]rubberband=tempo=0.5[a]" -map "[v]" -map "[a]" -c:a aac -b:a 128k -c:v libx264 output.mp4   
       
-      - name: upload
-        run: |
-          cd work
-          git clone https://github.com/c-kr/multi_hoster_uploader.git 
-          cd multi_hoster_uploader
-          pip install -r requirements.txt
-          ln -s /path/to/multi_hoster_uploader/multi_hoster_uploader ~/.local/bin/multi_hoster_uploader
-          cd work && multi_hoster_uploader --file output.mp4
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/upload-artifact@v3
+          with:
+            name: my-artifact
+            path: /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/output.mp4
