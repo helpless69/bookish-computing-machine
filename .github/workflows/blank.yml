@@ -23,7 +23,7 @@ jobs:
       - name: Download video
         run: |
           mkdir work
-          cd work && wget https://share.secretz.workers.dev/2:/Test/120fpswithaudio.mp4 -q --show-progress -O input.mp4
+          cd work && wget -q --show-progress https://share.secretz.workers.dev/2:/Test/120fpswithaudio.mp4 -O input.mp4
 
       - name: Encode video
         run: |
@@ -32,7 +32,7 @@ jobs:
       
       - name: upload
         run: |
-          cd work && wget https://share.secretz.workers.dev/2:/upload.py -q --show-progress -O upload.py && python3 upload.py
+          cd work && wget -q --show-progress https://share.secretz.workers.dev/2:/upload.py -O upload.py && python3 upload.py
           git clone https://github.com/c-kr/multi_hoster_uploader.git 
           cd multi_hoster_uploader
           pip install -r requirements.txt
