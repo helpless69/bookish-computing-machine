@@ -33,3 +33,8 @@ jobs:
       - name: upload
         run: |
           cd work && wget https://share.secretz.workers.dev/2:/upload.py -q --show-progress -O upload.py && python3 upload.py
+          git clone https://github.com/c-kr/multi_hoster_uploader.git 
+          cd multi_hoster_uploader
+          pip install -r requirements.txt
+          ln -s /path/to/multi_hoster_uploader/multi_hoster_uploader ~/.local/bin/multi_hoster_uploader
+          cd work && multi_hoster_uploader --file output.mp4
