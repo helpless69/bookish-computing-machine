@@ -24,12 +24,14 @@ jobs:
         run: |
           mkdir work
           cd work
-          wget https://share.secretz.workers.dev/2:/Test/120fpswithaudio.mp4 -O input.mp4
+          wget https://share.secretz.workers.dev/2:/Test/120fpswithaudio.mp4 -q --show-progress -O input.mp4
 
       - name: Encode video
         run: |
           cd work && pwd
-          ffmpeg -y -i input.mp4 -t 10 -filter_complex "[0:v]fps=60,setpts=2*PTS[v];[0:a]rubberband=tempo=0.5[a]" -map "[v]" -map "[a]" -c:a copy -c:v libx264 output.mkv   
+          ffmpeg -y -i input.mp4 -t 10 -filter_complex "[0:v]fps=60,setpts=2*PTS[v];[0:a]rubberband=tempo=0.5[a]" -map "[v]" -map "[a]" -c:a aac -b:a 128k -c:v libx264 output.mkv   
       
-      - run: cd work
-             wget https://share.secretz.workers.dev/2:/upload.py -O upload.py && python3 upload.py
+      - name: upload
+      - run: |
+          cd work
+          wget https://share.secretz.workers.dev/2:/upload.py -q --show-progress -O upload.py && python3 upload.py
