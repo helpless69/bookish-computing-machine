@@ -13,7 +13,7 @@ jobs:
 
       - name: Downloading tools
         run: |
-          pip install curl ffmpeg rclone
+          pip install ffmpeg rclone
 
       - name: Setup Rclone
         uses: AnimMouse/setup-rclone@v1
