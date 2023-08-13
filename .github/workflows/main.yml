@@ -33,13 +33,13 @@ jobs:
 
       - name: Download video
         run: |
-          cd work && cd Real-ESRGAN && yt-dlp -o video.mp4 https://www.tiktok.com/@fiona.szee/video/7049012484023291162
+          cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/Real-ESRGAN && yt-dlp -o /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/Real-ESRGAN/video.mp4 https://www.tiktok.com/@fiona.szee/video/7049012484023291162
 
 
       - name: Upscale
         run: |
-          cd work && cd Real-ESRGAN
-          python inference_realesrgan_video.py -n RealESRGAN_x4plus -i video.mp4 -s 8 --face_enhance
+          cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/Real-ESRGAN
+          python inference_realesrgan_video.py -n RealESRGAN_x4plus -i /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/Real-ESRGAN/video.mp4 -s 8 --face_enhance
           
       - name: Upload
         uses: actions/upload-artifact@v3
