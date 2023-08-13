@@ -13,7 +13,7 @@ jobs:
 
       - name: Downloading tools
         run: |
-          pip install ffmpeg ffpb rclone yt-dlp gfpgan facexlib basicsr
+          pip install ffmpeg ffpb rclone yt-dlp gfpgan facexlib basicsr setuptools
 
       - name: Setup Rclone
         uses: AnimMouse/setup-rclone@v1
