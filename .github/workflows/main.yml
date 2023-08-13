@@ -22,6 +22,7 @@ jobs:
 
       - name: Setup Upscaler
         run: |
+          mkdir work
           cd work && git clone https://github.com/xinntao/Real-ESRGAN.git
           cd Real-ESRGAN
           pip install basicsr
@@ -32,7 +33,6 @@ jobs:
 
       - name: Download video
         run: |
-          mkdir work
           cd work && cd Real-ESRGAN && yt-dlp -o video.mp4 https://www.tiktok.com/@fiona.szee/video/7049012484023291162
 
 
