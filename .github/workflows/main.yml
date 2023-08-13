@@ -13,7 +13,7 @@ jobs:
 
       - name: Downloading tools
         run: |
-          pip install ffmpeg ffpb rclone yt-dlp
+          pip install ffmpeg ffpb rclone yt-dlp gfpgan facexlib basicsr
 
       - name: Setup Rclone
         uses: AnimMouse/setup-rclone@v1
@@ -24,12 +24,7 @@ jobs:
         run: |
           mkdir work && pwd
           cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && git clone https://github.com/xinntao/Real-ESRGAN.git
-          cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/Real-ESRGAN
-          pip install basicsr
-          pip install facexlib
-          pip install gfpgan
-          pip install -r requirements.txt
-          python setup.py develop
+          cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/Real-ESRGAN && pip install -r requirements.txt && python setup.py develop
 
       - name: Download video
         run: |
