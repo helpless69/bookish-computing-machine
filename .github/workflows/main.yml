@@ -23,8 +23,8 @@ jobs:
       - name: Setup Upscaler
         run: |
           mkdir work && pwd
-          cd work && git clone https://github.com/xinntao/Real-ESRGAN.git
-          cd work/Real-ESRGAN
+          cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && git clone https://github.com/xinntao/Real-ESRGAN.git
+          cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/Real-ESRGAN
           pip install basicsr
           pip install facexlib
           pip install gfpgan
