@@ -22,9 +22,9 @@ jobs:
 
       - name: Setup Upscaler
         run: |
-          mkdir work
+          mkdir work && pwd
           cd work && git clone https://github.com/xinntao/Real-ESRGAN.git
-          cd Real-ESRGAN
+          cd work/Real-ESRGAN
           pip install basicsr
           pip install facexlib
           pip install gfpgan
