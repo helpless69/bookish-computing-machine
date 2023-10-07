@@ -23,15 +23,15 @@ jobs:
       - name: Download video
         run: |
           mkdir work
-          cd work && curl https://share.secretz.workers.dev/2:/Test/120fpswithaudio.mp4 -o input.mp4
+          cd work && curl "https://share.secretz.workers.dev/2:/movies/Chainsaw%20Man%20S01%201080p%20Dual%20Audio%20BD%20Remux%20FLAC-TTGA/S01E01-Dog%20&%20Chainsaw.mkv" -o input.mkv
 
       - name: Encode video
         run: |
           cd work && pwd
-          ffmpeg -y -i input.mp4 -filter_complex "[0:v]fps=60,setpts=2*PTS[v];[0:a]rubberband=tempo=0.5[a]" -map "[v]" -map "[a]" -c:a aac -b:a 128k -c:v libx264 output.mp4   
-     
+          ffmpeg -i input.mkv -map 0 -c:v libx265 -pix_fmt yuv420p10le -c:a aac -b:a 128k output.mkv
+          
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
           name: Upload
-          path: /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/output.mp4
+          path: /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/output.mkv
