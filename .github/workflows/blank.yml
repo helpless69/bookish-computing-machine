@@ -23,7 +23,7 @@ jobs:
       - name: Download video
         run: |
           mkdir work
-          cd work && curl "https://share.secretz.workers.dev/2:/movies/Chainsaw%20Man%20S01%201080p%20Dual%20Audio%20BD%20Remux%20FLAC-TTGA/S01E01-Dog%20&%20Chainsaw.mkv" -o input.mkv
+          cd work && curl "https://share.secretz.workers.dev/2:/Mumbai.Diaries.S02E01.Clouds.on.the.Horizon.2160p.AMZN.WEB-DL.HIN-TAM-TEL-KAN-MAL.DDP5.1.H.265-Telly.mkv" -o input.mkv
 
       - name: Encode video
         run: |
