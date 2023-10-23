@@ -30,7 +30,7 @@ jobs:
           cd work && pwd && mkdir encode
           for input_video in $(find . -name "*.jpg"); do
             output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .jpg)_encoded.webp"
-            ffpb -i "$input_video" "$output_video"
+            ffpb -i "$input_video" -q:v 75 "$output_video"
           done
           
       - name: zip
