@@ -1,0 +1,44 @@
+name: encode
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9999
+    
+    steps:
+      - uses: actions/checkout@v3
+      - uses: FedericoCarboni/setup-ffmpeg@v2
+        id: setup-ffmpeg
+
+      - name: Downloading tools
+        run: |
+          pip install ffmpeg ffpb rclone
+
+      - name: Setup Rclone
+        uses: AnimMouse/setup-rclone@v1
+        with:
+          rclone_config: ${{ secrets.RCLONE_CONFIG }}
+
+      - name: Download video
+        run: |
+          mkdir work
+          cd work && curl "https://share.secretz.workers.dev/2:/Video.zip" -o Video.zip && unzip Video.zip
+
+      - name: Encode video
+        run: |
+          cd work && pwd && mkdir encode
+          for input_video in $(find . -name "*.mp4"); do
+            output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4)_encoded.mp4"
+            ffpb -i "$input_video" -map 0 -vf scale=1920:1080 -preset slow -c:v libx265 -x265-params "frame-threads=5:numa-pools=+:pmode=1:ref=6:min-keyint=24:gop-lookahead=0:bframes=16:b-adapt=2:b-pyramid=1:rc-lookahead=60:tu-inter-depth=4:tu-intra-depth=4:max-merge=3:limit-modes=1:me=3:subme=4:merange=57:weightp=1:weightb=1:deblock=-1,-1:b-intra=1:psy-rd=1.0:psy-rdoq=1.2:cbqpoffs=-1:crqoffs=-1:crf=22:qcomp=0.65:aq-mode=3:aq-strength=0.90:hist-threshold=0.03:no-limit-sao=1:qp-adaptation=1:" -pix_fmt yuv420p10le -c:a aac -b:a 128k "$output_video"
+          done
+          
+      - name: zip
+        run: |
+         cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && zip -r encode.zip encode
+
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: Upload
+          path: /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode.zip
