@@ -30,7 +30,7 @@ jobs:
           cd work && pwd && mkdir encode
           for input_video in $(find . -name "*.mp4"); do
             output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mp4"
-            ffpb -i "$input_video" -map 0 -vf scale=1920:1080 -preset slow -c:v libx265 -x265-params "frame-threads=5:numa-pools=+:pmode=1:ref=6:min-keyint=24:gop-lookahead=0:bframes=16:b-adapt=2:b-pyramid=1:rc-lookahead=60:tu-inter-depth=4:tu-intra-depth=4:max-merge=3:limit-modes=1:me=3:subme=4:merange=57:weightp=1:weightb=1:deblock=-1,-1:b-intra=1:psy-rd=1.0:psy-rdoq=1.2:cbqpoffs=-1:crqoffs=-1:crf=22:qcomp=0.65:aq-mode=3:aq-strength=0.90:hist-threshold=0.03:no-limit-sao=1:qp-adaptation=1:" -pix_fmt yuv420p10le -c:a aac -b:a 128k "$output_video"
+            ffpb -i "$input_video" -vf scale=1920:1080 -c:v libsvtav1 -pix_fmt yuv420p10le -preset=6 -crf 24 -g 300 -svtav1-params tune=0:film-grain-denoise=1:film-grain=4 "$output_video"
           done
           
       - name: zip
