@@ -12,7 +12,6 @@ jobs:
           pip install ffpb rclone
           sudo curl -L https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz -o /usr/local/bin/ffmpeg.tar.xz
           sudo tar -xvf /usr/local/bin/ffmpeg.tar.xz -C /usr/local/bin/
-          ls /usr/local/bin/ffmpeg-master-latest-linux64-gpl
           sudo mv -v /usr/local/bin/ffmpeg-master-latest-linux64-gpl/bin/* /usr/local/bin
           chmod a+rx /usr/local/bin/ffmpeg 
           ffmpeg -encoders
