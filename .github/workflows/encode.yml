@@ -32,7 +32,7 @@ jobs:
           cd work && pwd && mkdir encode
           for input_video in $(find . -name "*.mp4"); do
             output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mp4"
-            ffmpeg -i "$input_video" -vf scale=1920:1080 -c:v libsvtav1 -pix_fmt yuv420p10le -preset 6 -crf 24 -g 300 -svtav1-params tune=0,film-grain=10 "$output_video"
+            ffmpeg -i "$input_video" -vf scale=1920:1080 -c:v librav1e -pix_fmt yuv420p10le -qp 80 -speed 6 -tile-columns 2 -tile-rows 2 -c:a aac -b:a 128k "$output_video"
           done
           
       - name: zip
