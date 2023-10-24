@@ -11,7 +11,7 @@ jobs:
         run: |
           pip install ffpb rclone
           apt-get install p7zip-full
-          curl https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz -o /usr/local/bin/ffmpeg.tar.xz && 7z e /usr/local/bin/ffmpeg.tar.xz && chmod a+rx /usr/local/bin/ffmpeg
+          sudo curl https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz -o /usr/local/bin/ffmpeg.tar.xz && sudo 7z e /usr/local/bin/ffmpeg.tar.xz && sudo chmod a+rx /usr/local/bin/ffmpeg
           
       - name: Setup Rclone
         uses: AnimMouse/setup-rclone@v1
