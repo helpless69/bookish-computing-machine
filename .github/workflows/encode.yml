@@ -7,18 +7,16 @@ jobs:
     timeout-minutes: 9999
     
     steps:
-      - uses: actions/checkout@v3
-      - uses: FedericoCarboni/setup-ffmpeg@v2
-        id: setup-ffmpeg
-
       - name: Downloading tools
         run: |
-          pip install ffmpeg ffpb rclone
-
+          pip install ffpb rclone
+          apt-get install p7zip-full
+          curl https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz -o /usr/local/bin/ffmpeg.tar.xz && 7z e /usr/local/bin/ffmpeg.tar.xz && chmod a+rx /usr/local/bin/ffmpeg
+          
       - name: Setup Rclone
         uses: AnimMouse/setup-rclone@v1
         with:
-          rclone_config: ${{ secrets.RCLONE_CONFIG }}
+          rclone_config: ${{ secrets.RCLONE_CONFIG }} 
 
       - name: Download video
         run: |
@@ -30,7 +28,7 @@ jobs:
           cd work && pwd && mkdir encode
           for input_video in $(find . -name "*.mp4"); do
             output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mp4"
-            ffpb -i "$input_video" -vf scale=1920:1080 -c:v libsvtav1 -pix_fmt yuv420p10le -preset 6 -crf 24 -g 300 -svtav1-params tune=0,film-grain=10 "$output_video"
+            ffmpeg -i "$input_video" -vf scale=1920:1080 -c:v libsvtav1 -pix_fmt yuv420p10le -preset 6 -crf 24 -g 300 -svtav1-params tune=0,film-grain=10 "$output_video"
           done
           
       - name: zip
