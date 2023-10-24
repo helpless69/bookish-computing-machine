@@ -25,14 +25,14 @@ jobs:
       - name: Download video
         run: |
           mkdir work
-          cd work && curl "https://share.secretz.workers.dev/2:/VID_20190131_132237353_HDR.mp4" -o Video.mp4
+          cd work && curl "https://share.secretz.workers.dev/2:/Video.zip" -o Video.zip && unzip Video.zip
 
       - name: Encode video
         run: |
           cd work && pwd && mkdir encode
           for input_video in $(find . -name "*.mp4"); do
             output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mp4"
-            ffmpeg -i "$input_video" -vf scale=1920:1080 -c:v librav1e -pix_fmt yuv420p10le -qp 80 -speed 6 -tile-columns 2 -tile-rows 2 -c:a aac -b:a 128k "$output_video"
+            ffmpeg -i "$input_video" -vf scale=1920:1080 -c:v libsvtav1 -pix_fmt yuv420p10le -preset 4 -crf 22 -g 240 -svtav1-params enable-overlays=1:tune=0:film-grain-denoise=0:film-grain=5 "$output_video"
           done
           
       - name: zip
