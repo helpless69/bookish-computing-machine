@@ -1,4 +1,4 @@
-name: encode
+name: encode1
 on: workflow_dispatch
 
 jobs:
