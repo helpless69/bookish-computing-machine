@@ -23,7 +23,7 @@ jobs:
       - name: Download video
         run: |
           mkdir work
-          cd work && curl "https://share.secretz.workers.dev/2:/Video2.zip" -o Video.zip && unzip Video.zip
+          cd work && curl "https://share.secretz.workers.dev/2:/VID_20190622_200338188_HDR.mp4" -o video.mp4
 
       - name: Encode video
         run: |
