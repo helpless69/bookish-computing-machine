@@ -16,7 +16,6 @@ jobs:
           chmod a+rx /usr/local/bin/ffmpeg 
           ffmpeg -encoders
           
-          
       - name: Setup Rclone
         uses: AnimMouse/setup-rclone@v1
         with:
@@ -29,11 +28,11 @@ jobs:
 
       - name: Encode videos
         run: |
-         mkdir -p /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode
-         for input_video in /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/work/*.mp4; do
-           output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mp4"
-           ffpb -i "$input_video" -c:v libsvtav1 -pix_fmt yuv420p10le -preset 6 -crf 24 -svtav1-params keyint=5s:enable-tf=0:enable-overlays=1:input-depth=10:tune=0:film-grain-denoise=0:film-grain=10 "$output_video"
-         done
+          mkdir -p /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode
+          find . -type f -name "*.mp4" | while read -r input_video; do
+            output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename "$input_video" .mp4).mp4"
+            ffmpeg -i "$input_video" -c:v libsvtav1 -pix_fmt yuv420p10le -preset 6 -crf 24 -svtav1-params keyint=5s:enable-tf=0:enable-overlays=1:input-depth=10:tune=0:film-grain-denoise=0:film-grain=10 "$output_video"
+          done
           
       - name: zip
         run: |
@@ -44,4 +43,3 @@ jobs:
         with:
           name: Upload
           path: /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode.zip
-          
