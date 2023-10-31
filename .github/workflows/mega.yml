@@ -25,22 +25,22 @@ jobs:
       - name: Download video
         run: |
           mkdir work
-          cd work && curl "https://share.secretz.workers.dev/2:/mega.zip" -o mega.zip && unzip mega.zip
+          cd work && curl "https://share.secretz.workers.dev/2:/mega.zip" -o Video.zip && unzip Video.zip
 
       - name: Encode video
         run: |
-          cd work && cd mega && pwd && ls && mkdir encode
+          cd work && pwd && mkdir encode
           for input_video in $(find . -name "*.mp4"); do
-            output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/mega/encode/$(basename $input_video .mp4).mp4"
+            output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mp4"
             ffpb -i "$input_video" -vf "scale=-2:1080" -c:v libsvtav1 -pix_fmt yuv420p10le -preset 6 -crf 24 -svtav1-params keyint=5s:enable-tf=0:enable-overlays=1:input-depth=10:tune=0:film-grain-denoise=0:film-grain=10 "$output_video"
           done
           
       - name: zip
         run: |
-         cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/mega/ && zip -r encode.zip encode
+         cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && zip -r encode.zip encode
 
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
           name: Upload
-          path: /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/mega/encode.zip
+          path: /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode.zip
