@@ -33,7 +33,7 @@ jobs:
       - name: Encode video
         run: |
           cd work && pwd
-          ffmpeg -i input.mp4 -map 0 -c:v libx265 -crf 24 -preset slow -x265-params "qcomp=0.75:ref=5:psy-rd=2.0:psy-rdoq=2.0:aq-mode=3:aq-strength=0.85:bframes=16:rc-lookahead=80:sar=1:keyint=240:min-keyint=23:rd=4:subme=5:limit-refs=1:no-sao" output.mkv
+          ffmpeg -i input.mp4 -map 0 -c:v libx265 -crf 24 -preset slow -x265-params "qcomp=0.75:ref=5:psy-rd=2.0:psy-rdoq=2.0:aq-mode=3:aq-strength=0.85:bframes=16:rc-lookahead=80:sar=1:keyint=240:min-keyint=23:rd=4" output.mkv
           
       - name: Upload
         uses: actions/upload-artifact@v3
