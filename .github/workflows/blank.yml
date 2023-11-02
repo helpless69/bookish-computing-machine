@@ -28,7 +28,7 @@ jobs:
       - name: Encode video
         run: |
           cd work && pwd
-          ffpb -i input.mp4 -map 0 -c:v libx265 -crf 24 -qcomp 0.75 -preset slow -x265-params "ref=5:psy-rd=2.0:psy-rdoq=2.0:aq-mode=3:aq-strength=0.85:bframes=16:rc-lookahead=80:sar=1:keyint=240:min-keyint=23:rd=4:subme=5:rskip=0:cbqpoffs=-2:crqpoffs=-2:no-cutree:no-open-gop:limit-refs=1:no-limit-modes:tu-intra-depth=2:tu-inter-depth=2:no-fast-intra:weightb:b-intra:no-early-skip:no-tskip:no-tskip-fast:no-rect:no-amp:no-sao:no-sao-non-deblock:no-strong-intra-smoothing:deblock=-2:-2" output.mkv
+          ffmpeg -i input.mp4 -map 0 -c:v libx265 -crf 24 -preset slow -x265-params "qcomp=0.75:ref=5:psy-rd=2.0:psy-rdoq=2.0:aq-mode=3:aq-strength=0.85:bframes=16:rc-lookahead=80:sar=1:keyint=240:min-keyint=23:rd=4:subme=5:rskip=0:cbqpoffs=-2:crqpoffs=-2:no-cutree:no-open-gop:limit-refs=1:no-limit-modes:tu-intra-depth=2:tu-inter-depth=2:no-fast-intra:weightb:b-intra:no-early-skip:no-tskip:no-tskip-fast:no-rect:no-amp:no-sao:no-sao-non-deblock:no-strong-intra-smoothing:deblock=-2:-2" output.mkv
           
       - name: Upload
         uses: actions/upload-artifact@v3
