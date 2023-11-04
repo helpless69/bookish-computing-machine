@@ -21,7 +21,7 @@ jobs:
           
       - uses: actions/checkout@v3
       - name: setup ab-av1
-        run: cargo install av1an
+        run: sudo apt-get install libavutil-dev && cargo install av1an
         
       - name: Start SSH via ngrok
         uses: rdp-studio/ssh2actions@main
