@@ -25,7 +25,7 @@ jobs:
     - name: Download video
       run: |
        mkdir work
-       cd work && curl "https://idk-sable-three.vercel.app/api/raw/?path=/%5BErai-raws%5D%20Shingeki%20no%20Kyojin%20-%20The%20Final%20Season%20Part%203%20-%20SP2%20%5B1080p%5D%5BMultiple%20Subtitle%5D%5B3C5FE1F1%5D.mkv" -o Video.mkv
+       cd work && wget "https://idk-sable-three.vercel.app/api/raw/?path=/%5BErai-raws%5D%20Shingeki%20no%20Kyojin%20-%20The%20Final%20Season%20Part%203%20-%20SP2%20%5B1080p%5D%5BMultiple%20Subtitle%5D%5B3C5FE1F1%5D.mkv" -o Video.mkv
 
     - name: Encode video
       run: |
