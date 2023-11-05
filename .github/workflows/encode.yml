@@ -25,7 +25,7 @@ jobs:
     - name: Download video
       run: |
        mkdir work
-       cd work && wget "https://share.secretz.workers.dev/2:/Takeshis.mkv" -o Video.mkv
+       cd work && curl "https://share.secretz.workers.dev/2:/Takeshis.mkv" -o Video.mkv
 
     - name: Encode video
       run: |
