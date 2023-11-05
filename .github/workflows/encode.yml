@@ -32,7 +32,7 @@ jobs:
        cd work && pwd && mkdir encode
        for input_video in $(find . -name "*.mkv"); do
          output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
-         ffmpeg -i "$input_video" -c:v libsvtav1 -pix_fmt yuv420p10le -preset 6 -crf 26 -svtav1-params keyint=5s:enable-overlays=1:input-depth=10:tune=0:film-grain-denoise=1:film-grain=4 "$output_video"
+         ffpb -i "$input_video" -c:v libsvtav1 -pix_fmt yuv420p10le -preset 6 -crf 26 -svtav1-params keyint=5s:enable-overlays=1:input-depth=10:tune=0:film-grain-denoise=1:film-grain=4 "$output_video"
        done
       
     - name: zip
