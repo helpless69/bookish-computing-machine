@@ -25,14 +25,14 @@ jobs:
     - name: Download video
       run: |
        mkdir work
-       cd work && wget "https://idk-sable-three.vercel.app/api/raw/?path=/%5BErai-raws%5D%20Shingeki%20no%20Kyojin%20-%20The%20Final%20Season%20Part%203%20-%20SP2%20%5B1080p%5D%5BMultiple%20Subtitle%5D%5B3C5FE1F1%5D.mkv" -o Video.mkv
+       cd work && wget "https://share.secretz.workers.dev/2:/Takeshis.mkv" -o Video.mkv
 
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
        for input_video in $(find . -name "*.mkv"); do
          output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
-         ffpb -i "$input_video" -c:v libsvtav1 -pix_fmt yuv420p10le -preset 6 -crf 26 -svtav1-params keyint=5s:enable-overlays=1:input-depth=10:tune=2:film-grain-denoise=1:film-grain=4 -strict -2 -color_primaries 1 -color_trc 1 -colorspace 1 "$output_video"
+         ffmpeg -i "$input_video" -c:v libsvtav1 -pix_fmt yuv420p10le -preset 6 -crf 26 -svtav1-params keyint=5s:enable-overlays=1:input-depth=10:tune=0:film-grain-denoise=1:film-grain=4 -strict -2 -color_primaries 1 -color_trc 1 -colorspace 1 "$output_video"
        done
       
     - name: zip
