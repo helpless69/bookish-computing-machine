@@ -31,7 +31,7 @@ jobs:
        cd work && pwd && mkdir encode
        for input_video in $(find . -name "*.mkv"); do
          output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
-         ffpb -i "$input_video" -t 30 -map 0 -c:v libx265 -pix_fmt yuv420p10le -crf 26 -x265-params "rc-lookahead=120:preset=slow:bframes=8:ref=6:no-sao=1:aq-mode=4:aq-strength=1.00:rskip=0:rskip-edge-threshold=1:psy-rd=1.00:psy-rdoq=1.00:rdoq-level=2:rd=4:deblock=-1,-1:qcomp=0.70:output-depth=10:input-depth=10:range=limited:colorprim=1:colormatrix=1:transfer=1:hdr10=0:dolby-vision-profile=0:master-display='G(8500,39850)B(6550,2300)R(35400,14600)WP(15635,16450)L(10000000,20)':no-rect=1:no-amp=1:no-open-gop=1:no-cutree=1:ctu=64:min-cu-size=8:rdoq-level=2:max-merge=5:subme=5:ipratio=1.30:pbratio=1.20" -c:a aac -b:a 128k -c:s copy "$output_video"
+         ffpb -i "$input_video" -t 30 -map 0 -c:v libx265 -pix_fmt yuv420p10le -crf 26 -x265-params "rc-lookahead=120:preset=slow:bframes=8:ref=6:no-sao=1:aq-mode=4:aq-strength=1.00:rskip=0:rskip-edge-threshold=1:psy-rd=1.00:psy-rdoq=1.00:rdoq-level=2:rd=4:deblock=-1,-1:qcomp=0.70:output-depth=10:input-depth=10:range=limited:colorprim=1:colormatrix=1:transfer=1:hdr10=0:dolby-vision-profile=0:master-display='G(8500,39850)B(6550,2300)R(35400,14600)WP(15635,16450)L(10000000,20)':no-rect=1:no-amp=1:no-open-gop=1:no-cutree=1:ctu=64:min-cu-size=8:rdoq-level=2:max-merge=5:subme=5:ipratio=1.30:pbratio=1.20:merange=57:high-tier=1:aud=1:repeat-headers=1:max-cll='0,0':cbqpoffs=-3:crqpoffs=-3" -c:a aac -b:a 128k -c:s copy "$output_video"
        done
       
     - name: zip
