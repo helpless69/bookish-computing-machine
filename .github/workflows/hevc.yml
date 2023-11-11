@@ -31,7 +31,7 @@ jobs:
        cd work && pwd && mkdir encode
        for input_video in $(find . -name "*.mkv"); do
          output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
-         ffpb -i "$input_video" -map 0 -c:v libx265 -preset:v slow -crf 24 -x265-params "rskip=2:rdoq-level=2:rc-lookahead=120:ref=6:bframes=8:rd=4:subme=5:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.75:aq-mode=3:aq-strength=1.00:deblock=-3:-3:psy-rd=1.00:psy-rdoq=1.00:no-sao=1" -c:a aac -b:a 128k -c:s copy "$output_video"
+         ffpb -i "$input_video" -map 0 -c:v libx265 -preset:v slow -crf 25 -x265-params "rskip=2:rdoq-level=2:rc-lookahead=120:ref=6:bframes=8:rd=4:subme=5:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.75:aq-mode=3:aq-strength=1.00:deblock=-3:-3:psy-rd=1.00:psy-rdoq=1.00:no-sao=1" -c:a aac -b:a 128k -c:s copy "$output_video"
        done
       
     - name: zip
