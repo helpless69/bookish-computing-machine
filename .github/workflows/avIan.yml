@@ -41,7 +41,7 @@ jobs:
       run: |
        cd $HOME && pwd
        cd work && pwd && curl "https://share.secretz.workers.dev/2:/S01E01.mkv" -o input.mkv
-       
+
     - name: Install Dependencies
       run: |
         sudo apt update
@@ -56,10 +56,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-av1an-
 
-    - name: build
+    - name: Build and Install av1an
       run: |
         cd /home/runner/ && git clone https://github.com/master-of-zen/Av1an
-        cd Av1an && docker build -t "av1an" .
+        cd Av1an && cargo install --path .
 
     - name: Encode
       run: |
@@ -71,7 +71,7 @@ jobs:
 
     - name: zip
       run: |
-        cd /home/runner/work/ && zip -r encode.zip encode
+       cd /home/runner/work/ && zip -r encode.zip encode
 
     - name: Upload
       uses: actions/upload-artifact@v3
