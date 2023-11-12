@@ -23,16 +23,19 @@ jobs:
        sudo mv -v /usr/local/bin/ffmpeg-master-latest-linux64-gpl/bin/* /usr/local/bin
        chmod a+rx /usr/local/bin/ffmpeg
 
+    - name: Download video
+      run: |
+        mkdir work
+        cd work && curl "https://share.secretz.workers.dev/2:/S01E01.mkv" -o Video.mkv
+
     - name: Install Dependencies
       run: |
         sudo apt update
         sudo apt install -y build-essential aom-tools nasm libtool python3-pip cython3 python3 clang autoconf ffmpeg libavformat-dev libavfilter-dev libavdevice-dev
         
-    - name: Build and Install av1an
-      run: |
-        cd /home/runner/ && git clone https://github.com/master-of-zen/Av1an
-        cd Av1an && docker build -t "av1an" .
-
+    - name: Pull Av1an Docker Image
+      run: docker pull masterofzen/av1an
+      
     - name: Start SSH via ngrok
       uses: rdp-studio/ssh2actions@main
       with:
