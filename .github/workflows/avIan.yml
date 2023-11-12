@@ -15,32 +15,6 @@ jobs:
         sudo apt update
         sudo apt install -y build-essential aom-tools nasm libtool python3-pip cython3 python3 clang autoconf ffmpeg libavformat-dev libavfilter-dev libavdevice-dev
 
-    - name: Compile zimg
+    - name: build
       run: |
-        git clone https://github.com/sekrit-twc/zimg
-        cd zimg
-        git submodule update --init --recursive
-        ./autogen.sh
-        ./configure
-        make
-        sudo make install
-
-    - name: Compile VapourSynth
-      run: |
-        git clone https://github.com/vapoursynth/vapoursynth
-        cd vapoursynth
-        ./configure
-        make
-        sudo make install
-        sudo ln -s /usr/local/lib/libvapour* /usr/lib
-
-    - name: Install Python Library for VapourSynth
-      run: pip install vapoursynth
-
-    - name: Install rustup and Compile av1an
-      run: |
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-        git clone https://github.com/master-of-zen/Av1an
-        cd Av1an
-        cargo build --release
-        sudo ldconfig
+        docker build -t "av1an" . && av1an
