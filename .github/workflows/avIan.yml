@@ -59,7 +59,7 @@ jobs:
     - name: Build and Install av1an
       run: |
         cd /home/runner/ && git clone https://github.com/master-of-zen/Av1an
-        cd Av1an && docker build -t "av1an"
+        cd Av1an && docker build -t "av1an" .
 
     - name: Encode
       run: |
