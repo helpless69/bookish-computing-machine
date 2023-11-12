@@ -1,7 +1,7 @@
 name: Av1an
 
 on: workflow_dispatch
-  
+
 jobs:
   build-tools:
     runs-on: ubuntu-latest
@@ -9,6 +9,16 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
+
+    - name: Cache tools
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.cache
+          /usr/local/bin
+        key: ${{ runner.os }}-tools-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-tools-
 
     - name: Downloading tools
       run: |
@@ -18,15 +28,28 @@ jobs:
        sudo mv -v /usr/local/bin/ffmpeg-master-latest-linux64-gpl/bin/* /usr/local/bin
        chmod a+rx /usr/local/bin/ffmpeg
 
-    - name: Download video
-      run: |
-       mkdir work
-       cd work && curl "https://share.secretz.workers.dev/2:/S01E01.mkv" -o input.mkv
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.apt
+        key: ${{ runner.os }}-apt-${{ hashFiles('**/apt.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-apt-
 
     - name: Install Dependencies
       run: |
         sudo apt update
         sudo apt install -y build-essential aom-tools nasm libtool python3-pip cython3 python3 clang autoconf ffmpeg libavformat-dev libavfilter-dev libavdevice-dev
+
+    - name: Cache Av1an source
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/Av1an
+        key: ${{ runner.os }}-av1an-${{ hashFiles('**/Dockerfile') }}
+        restore-keys: |
+          ${{ runner.os }}-av1an-
 
     - name: build
       run: |
@@ -38,14 +61,12 @@ jobs:
           av1an -i "$input_video" "$output_video"
         done
 
-
-
     - name: zip
       run: |
        cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && zip -r encode.zip encode
+
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
        name: Upload
        path: /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode.zip
-       
