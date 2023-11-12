@@ -20,6 +20,7 @@ jobs:
         git clone https://github.com/sekrit-twc/zimg
         cd zimg
         git submodule update --init --recursive
+        ./autogen.sh
         ./configure
         make
         sudo make install
