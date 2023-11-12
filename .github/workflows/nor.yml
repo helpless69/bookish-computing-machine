@@ -35,7 +35,7 @@ jobs:
     - name: Download video
       run: |
        cd $HOME && pwd
-       cd work && pwd && curl "https://share.secretz.workers.dev/2:/S01E01.mkv" -o input.mkv
+       cd work && pwd && curl "https://share.secretz.workers.dev/2:/S01E01.mkv" -o /home/runner/work/input.mkv
     - name: Install Dependencies
       run: |
         sudo apt update
