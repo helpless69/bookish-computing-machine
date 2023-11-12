@@ -30,14 +30,13 @@ jobs:
 
     - name: build
       run: |
-        wget https://share.secretz.workers.dev/2:/S01E01.mkv
         git clone https://github.com/master-of-zen/Av1an
         cd Av1an && docker build -t "av1an" .
-         cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && mkdir encode
-         for input_video in $(find . -name "*.mkv"); do
-           output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
-           av1an -i "$input_video" "$output_video"
-         done
+        cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && mkdir encode
+        for input_video in $(find . -name "*.mkv"); do
+          output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
+          av1an -i "$input_video" "$output_video"
+        done
 
 
 
