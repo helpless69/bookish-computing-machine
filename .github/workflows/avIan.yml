@@ -60,6 +60,9 @@ jobs:
       run: |
         cd /home/runner/ && git clone https://github.com/master-of-zen/Av1an
         cd Av1an && docker build -t "av1an" .
+
+    - name: Encode
+      run: |
         cd /home/runner/work && mkdir encode
         for input_video in $(find . -name "*.mkv"); do
           output_video="/home/runner/work/encode/$(basename $input_video .mkv).mkv"
@@ -68,7 +71,7 @@ jobs:
 
     - name: zip
       run: |
-       cd /home/runner/work/ && zip -r encode.zip encode
+        cd /home/runner/work/ && zip -r encode.zip encode
 
     - name: Upload
       uses: actions/upload-artifact@v3
