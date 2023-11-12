@@ -39,7 +39,7 @@ jobs:
 
     - name: Download video
       run: |
-       cd $HOME && pwd && mkdir work
+       cd $HOME && pwd
        cd work && pwd && curl "https://share.secretz.workers.dev/2:/S01E01.mkv" -o input.mkv
        
     - name: Install Dependencies
