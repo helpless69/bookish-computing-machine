@@ -20,6 +20,11 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-tools-
 
+    - name: Set PATH
+      run: |
+        echo 'export PATH="/usr/local/bin:${PATH}"' >> $HOME/.bashrc
+      shell: bash
+
     - name: Downloading tools
       run: |
        pip install ffpb rclone
