@@ -17,4 +17,5 @@ jobs:
 
     - name: build
       run: |
-        docker build -t "av1an" . && av1an
+        git clone https://github.com/master-of-zen/Av1an
+        docker build -t "Av1an" . && av1an
