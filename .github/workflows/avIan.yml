@@ -25,8 +25,8 @@ jobs:
 
     - name: Download video
       run: |
-        cd $HOME && pwd
-        cd $HOME && curl "https://share.secretz.workers.dev/2:/S01E01.mkv" -o Video.mkv
+        cd $HOME && pwd && mkdir encode
+        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/S01E01.mkv" -o Video.mkv
 
     - name: Install Dependencies
       run: |
@@ -35,32 +35,21 @@ jobs:
         
     - name: Pull Av1an Docker Image
       run: docker pull masterofzen/av1an
-      
-    - name: Start SSH via ngrok
-      uses: rdp-studio/ssh2actions@main
-      with:
-        mode: ngrok
-      env:
-          NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
-          NGROK_REGION: us
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
     - name: Encode
       run: |
-        cd /home/runner/work && mkdir encode && chmod a+rx /usr/local/bin/av1an && chmod a+rx /usr/local/bin/rav1e
+        cd /home/runner/encode && mkdir output
         for input_video in $(find . -name "*.mkv"); do
-          output_video="/home/runner/work/encode/$(basename $input_video .mkv).mkv"
-          av1an -i "$input_video" "$output_video"
+          output_video="/home/runner/encode/output/$(basename $input_video .mkv).mkv"
+          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -it --rm masterofzen/av1an:latest -i "$input_video" "$output_video"
         done
 
     - name: zip
       run: |
-       cd /home/runner/work/ && zip -r encode.zip encode
+       cd /home/runner/encode && zip -r output.zip output
 
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
        name: Upload
-       path: /home/runner/work/encode.zip
+       path: /home/runner/encode/output.zip
