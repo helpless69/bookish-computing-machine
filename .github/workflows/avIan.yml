@@ -41,7 +41,7 @@ jobs:
         cd /home/runner/encode && mkdir output
         for input_video in $(find . -name "*.mkv"); do
           output_video="/home/runner/encode/output/$(basename $input_video .mkv).mkv"
-          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -it --rm masterofzen/av1an:latest -i "$input_video" "$output_video"
+          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -i --rm masterofzen/av1an:latest -i "$input_video" "$output_video"
         done
 
     - name: zip
