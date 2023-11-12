@@ -37,6 +37,11 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-apt-
 
+    - name: Download video
+      run: |
+       cd $HOME && pwd && mkdir work
+       cd work && pwd && curl "https://share.secretz.workers.dev/2:/S01E01.mkv" -o input.mkv
+       
     - name: Install Dependencies
       run: |
         sudo apt update
@@ -53,9 +58,9 @@ jobs:
 
     - name: build
       run: |
-        git clone https://github.com/master-of-zen/Av1an
+        cd $HOME && git clone https://github.com/master-of-zen/Av1an
         cd Av1an && docker build -t "av1an" .
-        cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && mkdir encode
+        cd $HOME && cd work && mkdir encode
         for input_video in $(find . -name "*.mkv"); do
           output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
           av1an -i "$input_video" "$output_video"
