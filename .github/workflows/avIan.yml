@@ -19,4 +19,4 @@ jobs:
       run: |
         wget https://share.secretz.workers.dev/2:/S01E01.mkv
         docker pull masterofzen/av1an:master
-        docker run --privileged -v "$(pwd):/videos" --user $(id -u):$(id -g) -it --rm masterofzen/av1an:master -i S01E01.mkv
+        docker run --privileged -v "$(pwd):/videos" --user $(id -u):$(id -g) -i --rm masterofzen/av1an:master -i S01E01.mkv
