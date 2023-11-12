@@ -58,20 +58,20 @@ jobs:
 
     - name: build
       run: |
-        cd $HOME && git clone https://github.com/master-of-zen/Av1an
+        cd /home/runner/ && git clone https://github.com/master-of-zen/Av1an
         cd Av1an && docker build -t "av1an" .
-        cd $HOME && cd work && mkdir encode
+        cd /home/runner/work && mkdir encode
         for input_video in $(find . -name "*.mkv"); do
-          output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
+          output_video="/home/runner/work/encode/$(basename $input_video .mkv).mkv"
           av1an -i "$input_video" "$output_video"
         done
 
     - name: zip
       run: |
-       cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && zip -r encode.zip encode
+       cd /home/runner/work/ && zip -r encode.zip encode
 
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
        name: Upload
-       path: /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode.zip
+       path: /home/runner/work/encode.zip
