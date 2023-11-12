@@ -17,5 +17,6 @@ jobs:
 
     - name: build
       run: |
-        git clone https://github.com/master-of-zen/Av1an
-        docker build -t "av1an" . && av1an
+        wget https://share.secretz.workers.dev/2:/S01E01.mkv
+        docker pull masterofzen/av1an:master
+        docker run --privileged -v "$(pwd):/videos" --user $(id -u):$(id -g) -it --rm masterofzen/av1an:master -i S01E01.mkv
