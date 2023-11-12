@@ -59,11 +59,11 @@ jobs:
     - name: Build and Install av1an
       run: |
         cd /home/runner/ && git clone https://github.com/master-of-zen/Av1an
-        cd Av1an && cargo install --path .
+        cd Av1an && docker build -t "av1an"
 
     - name: Encode
       run: |
-        cd /home/runner/work && mkdir encode
+        cd /home/runner/work && mkdir encode && chmod a+rx /usr/local/bin/av1an && chmod a+rx /usr/local/bin/rav1e
         for input_video in $(find . -name "*.mkv"); do
           output_video="/home/runner/work/encode/$(basename $input_video .mkv).mkv"
           av1an -i "$input_video" "$output_video"
