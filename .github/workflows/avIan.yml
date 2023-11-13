@@ -26,7 +26,7 @@ jobs:
     - name: Download video
       run: |
         cd $HOME && pwd && mkdir encode
-        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/60s.mkv" -o Video.mkv
+        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/S01E01.mkv" -o Video.mkv
 
     - name: Install Dependencies
       run: |
