@@ -41,7 +41,7 @@ jobs:
         cd /home/runner/encode
         for input_video in $(find . -name "*.mkv"); do
           output_video="/home/runner/encode/$(basename $input_video .mkv).mkv"
-          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -i --rm masterofzen/av1an:latest -i "Video.mkv" --verbose --workers 2 --resume -e svt-av1 -v "--preset 6 --crf 28 --keyint 240 --irefresh-type 1 --enable-overlays 1 --scd 0 --tune 0 --chroma-u-dc-qindex-offset -1 --chroma-u-ac-qindex-offset -1 --chroma-v-dc-qindex-offset -1 --chroma-v-ac-qindex-offset -1 --enable-tf 0 --enable-qm 1 --qm-min 0 --qm-max 15 --color-primaries 1 --transfer-characteristics 1 --matrix-coefficients 1" -o "Output.mkv"
+          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -i --rm masterofzen/av1an:latest -i "Video.mkv" --verbose --resume -e svt-av1 -v " --preset 6 --crf 26 --keyint 240 " -o "Output.mkv"
         done
 
     - name: zip
