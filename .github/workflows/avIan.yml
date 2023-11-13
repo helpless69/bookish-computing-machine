@@ -26,7 +26,7 @@ jobs:
     - name: Download video
       run: |
         cd $HOME && pwd && mkdir encode
-        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/S01E01.mkv" -o Video.mkv
+        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/vigi.mkv" -o Video.mkv
 
     - name: Install Dependencies
       run: |
@@ -41,7 +41,7 @@ jobs:
         cd /home/runner/encode
         for input_video in $(find . -name "*.mkv"); do
           output_video="/home/runner/encode/$(basename $input_video .mkv).mkv"
-          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -i --rm masterofzen/av1an:latest -i "Video.mkv" --ffmpeg " -map 0 -c:s copy " --concat mkvmerge --chunk-method lsmash --verbose --resume -e x265 -v " -p slow --rc-lookahead 120 --crf 22 " -a="-c:a libopus -ac 2 -b:a 128k" -o "Output.mkv"
+          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -i --rm masterofzen/av1an:latest -i "Video.mkv" --ffmpeg " -map 0 -c:s copy " --concat mkvmerge --chunk-method lsmash --verbose --resume -e x265 -v " -p slow --rc-lookahead 60 --crf 23 " -a="-c:a libopus -ac 2 -b:a 128k" -o "Output.mkv"
         done
 
     - name: zip
