@@ -1,4 +1,4 @@
-name: ATest
+name: Docker Image
 
 on: workflow_dispatch
 
