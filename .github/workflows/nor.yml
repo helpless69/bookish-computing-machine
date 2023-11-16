@@ -35,9 +35,10 @@ jobs:
 
     - name: Build Docker Image if not cached
       run: |
+        git clone https://github.com/Helpless69/Av1an
         cd Av1an
         docker build -t "av1an" .
-      if: steps.cache.outputs.cache-hit != 'true'
+      if: steps.cache.outputs.cache-hit != true
 
     - name: Cache Docker layers
       uses: actions/cache@v2
