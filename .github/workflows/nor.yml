@@ -26,7 +26,7 @@ jobs:
     - name: Download video
       run: |
         cd $HOME && pwd && mkdir encode
-        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/Vigilante.S01E03.1080p.WEB.h264-EDITH%5Beztv.re%5D.mkv" -o Video.mkv
+        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/SGCAM_20231022_020132577.ACTIVE.mp4" -o Video.mp4
 
     - name: Install Dependencies
       run: |
@@ -43,9 +43,9 @@ jobs:
     - name: Encode
       run: |
         cd $HOME && cd encode
-        for input_video in $(find . -name "*.mkv"); do
-          output_video="$HOME/encode/$(basename $input_video .mkv).mkv"
-          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -i --rm av1an -i "Video.mkv" --ffmpeg " -map 0 -c:s copy" --concat mkvmerge --verbose -e x265 -v " -p slow --rc-lookahead 120 --rdoq-level 2 --bframes 8 --ref 4 --subme 3 --qcomp 0.60 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.00 --psy-rdoq 1.00 --no-sao --crf 23 " -a="-c:a libopus -ac 2 -b:a 128k" -o "Output.mkv"
+        for input_video in $(find . -name "*.mp4"); do
+          output_video="$HOME/encode/$(basename $input_video .mp4).mp4"
+          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -i --rm av1an -i "Video.mp4" --ffmpeg " -map 0 -c:s copy" --concat mkvmerge --verbose -e x265 -v " -p slow --rc-lookahead 25 --rdoq-level 2 --bframes 8 --ref 4 --subme 3 --qcomp 0.75 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.00 --psy-rdoq 1.00 --no-sao --crf 18 " -a="-c:a libopus -ac 2 -b:a 128k" -o "Output.mkv"
         done
 
     - name: Zip
