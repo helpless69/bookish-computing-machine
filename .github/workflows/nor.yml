@@ -32,20 +32,28 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y build-essential aom-tools nasm libtool python3-pip cython3 python3 clang autoconf ffmpeg libavformat-dev libavfilter-dev libavdevice-dev
-        
-    - name: Pull Av1an Docker Image
+
+    - name: Build Docker Image if not cached
       run: |
-         git clone https://github.com/Helpless69/Av1an
-         cd Av1an
-         docker build -t "av1an" .
-     
+        cd Av1an
+        docker build -t "av1an" .
+      if: steps.cache.outputs.cache-hit != 'true'
+
+    - name: Cache Docker layers
+      uses: actions/cache@v2
+      with:
+        path: |
+          /var/lib/docker
+        key: ${{ runner.os }}-docker-${{ hashFiles('**/*.Dockerfile') }}
+        restore-keys: |
+          ${{ runner.os }}-docker-
 
     - name: Encode
       run: |
         cd $HOME && cd encode
         for input_video in $(find . -name "*.mp4"); do
           output_video="$HOME/encode/$(basename $input_video .mp4).mp4"
-          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -i --rm av1an -i "Video.mp4" --ffmpeg " -map 0 -c:s copy" --concat mkvmerge --verbose -e x265 -v " -D 10 -p slow --rc-lookahead 25 --rdoq-level 2 --bframes 8 --ref 4 --subme 3 --qcomp 0.75 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.00 --psy-rdoq 1.00 --no-sao --crf 18 " -a="-c:a libopus -ac 2 -b:a 128k" -o "Output.mkv"
+          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -i --rm av1an -i "Video.mp4" --ffmpeg " -map 0 -c:s copy" --concat mkvmerge --verbose -e x265 -v " -D 10 -p veryslow --rc-lookahead 25 --rdoq-level 2 --bframes 8 --ref 4 --subme 3 --qcomp 0.75 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.00 --psy-rdoq 1.00 --no-sao --crf 21 " -a="-c:a copy" -o "Output.mkv"
         done
 
     - name: Zip
@@ -57,4 +65,3 @@ jobs:
       with:
         name: Upload
         path: /home/runner/encode/Output.mkv
-        
