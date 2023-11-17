@@ -26,7 +26,7 @@ jobs:
     - name: Download video
       run: |
         cd $HOME && pwd && mkdir encode
-        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/VID20231009143117.mp4" -o Video.mp4
+        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/VID20231029123902.mp4" -o Video.mp4
 
     - name: Install Dependencies
       run: |
@@ -43,7 +43,7 @@ jobs:
         cd $HOME && cd encode
         for input_video in $(find . -name "*.mp4"); do
           output_video="$HOME/encode/$(basename $input_video .mp4).mp4"
-          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -i --rm helpless69/av1an -i "Video.mp4" --ffmpeg " -map 0 -c:s copy" --concat mkvmerge --verbose -e x265 -v " -D 10 -p slow --rc-lookahead 25 --rdoq-level 2 --bframes 8 --ref 4 --subme 3 --qcomp 0.60 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.00 --psy-rdoq 1.00 --no-sao --crf 23 " -a="-c:a libopus -ac 2 -b:a 128k" -o "Output.mp4"
+          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -i --rm helpless69/av1an -i "Video.mp4" --ffmpeg " -vf scale=1080:1920 -map 0 -c:s copy" --concat mkvmerge --verbose -e x265 -v " -D 10 -p slow --rc-lookahead 25 --rdoq-level 2 --bframes 8 --ref 4 --subme 3 --qcomp 0.60 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.00 --psy-rdoq 1.00 --no-sao --crf 23 " -a="-c:a libopus -ac 2 -b:a 128k" -o "Output.mp4"
         done
 
     - name: Zip
