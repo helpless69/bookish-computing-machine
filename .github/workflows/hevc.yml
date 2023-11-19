@@ -25,7 +25,7 @@ jobs:
     - name: Download video
       run: |
        mkdir work
-       cd work && curl "https://share.secretz.workers.dev/2:/30m.mkv" -o Video.mkv
+       cd work && curl "https://share.secretz.workers.dev/2:/The.Railway.Men.The.Untold.Story.of.Bhopal.1984.S01E01.1080p.NF.WEB-DL.HIN-ENG-TAM-TEL.DDP5.1.x264-Telly.mkv" -o Video.mkv
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
