@@ -25,7 +25,7 @@ jobs:
     - name: Download video
       run: |
         cd $HOME && pwd && mkdir encode
-        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/The.Railway.Men.The.Untold.Story.of.Bhopal.1984.S01E01.1080p.NF.WEB-DL.HIN-ENG-TAM-TEL.DDP5.1.x264-Telly.mkv" -o Video.mkv
+        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/Sex.Education.S04E01.2160p.NF.WEB-DL.HIN-ENG-TAM-TEL.DDP5.1.H.265-FLUX.mkv" -o Video.mkv
     - name: Install Dependencies
       run: |
         sudo apt update
@@ -36,7 +36,7 @@ jobs:
         cd $HOME && cd encode
         for input_video in $(find . -name "*.mkv"); do
           output_video="$HOME/encode/$(basename $input_video .mkv).mkv"
-          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm masterofzen/av1an:master -w 2 -i "Video.mkv" --ffmpeg " -map 0 -c:s copy" --concat mkvmerge --verbose -e x265 -v " -p slow --rc-lookahead 50 --rdoq-level 2 --bframes 8 --ref 4 --subme 3 --qcomp 0.60 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.00 --psy-rdoq 1.00 --no-sao --crf 24 " -a="-c:a libopus -ac 2 -b:a 128k" -o "Output.mkv"
+          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm masterofzen/av1an:master -w 2 -i "Video.mkv" --ffmpeg " -vf scale=1920:1080 -map 0 -c:s copy" --concat mkvmerge --verbose -e x265 -v " -p slow --rc-lookahead 50 --rdoq-level 2 --bframes 8 --ref 4 --subme 3 --qcomp 0.60 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.00 --psy-rdoq 1.00 --no-sao --crf 24 " -a="-c:a libopus -ac 2 -b:a 128k" -o "Output.mkv"
         done
 
     - name: Zip
