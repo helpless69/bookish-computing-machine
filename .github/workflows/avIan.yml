@@ -36,7 +36,7 @@ jobs:
         cd $HOME && cd encode
         for input_video in $(find . -name "*.mkv"); do
           output_video="$HOME/encode/$(basename $input_video .mkv).mkv"
-          docker run --progress="interval=10s" --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm masterofzen/av1an:master -w 2 -i "Video.mkv" --ffmpeg " -map 0 -c:s copy" --concat mkvmerge --verbose -e x265 -v " -p slow --rc-lookahead 120 --rdoq-level 2 --bframes 8 --ref 4 --subme 3 --qcomp 0.60 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.00 --psy-rdoq 1.00 --no-sao --crf 27 " -a="-c:a libopus -ac 2 -b:a 128k" -o "Output.mkv"
+          watch -n 5 'docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm masterofzen/av1an:master -w 2 -i "Video.mkv" --ffmpeg " -map 0 -c:s copy" --concat mkvmerge --verbose -e x265 -v " -p slow --rc-lookahead 120 --rdoq-level 2 --bframes 8 --ref 4 --subme 3 --qcomp 0.60 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.00 --psy-rdoq 1.00 --no-sao --crf 27 " -a="-c:a libopus -ac 2 -b:a 128k" -o "Output.mkv"'
         done
 
     - name: Zip
