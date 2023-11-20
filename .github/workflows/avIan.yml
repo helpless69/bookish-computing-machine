@@ -25,7 +25,7 @@ jobs:
     - name: Download video
       run: |
         cd $HOME && pwd && mkdir encode
-        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/Sex.Education.S04E01.2160p.NF.WEB-DL.HIN-ENG-TAM-TEL.DDP5.1.H.265-FLUX.mkv" -o Video.mkv
+        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/PXL_20231119_161345940.CINEMATIC.mp4" -o Video.mp4
     - name: Install Dependencies
       run: |
         sudo apt update
@@ -36,7 +36,7 @@ jobs:
         cd $HOME && cd encode
         for input_video in $(find . -name "*.mkv"); do
           output_video="$HOME/encode/$(basename $input_video .mkv).mkv"
-          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm masterofzen/av1an:master --set-thread-affinity 2 -w 4 -i "Video.mkv" --ffmpeg " -map 0 -c:s copy" -m lsmash --concat mkvmerge --sc-downscale-height 1080 --force --verbose -e x265 -v " -p slow --rc-lookahead 50 --rdoq-level 2 --bframes 8 --ref 4 --subme 3 --qcomp 0.60 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.00 --psy-rdoq 1.00 --no-sao --crf 24 " -a="-c:a libopus -ac 2 -b:a 128k" -o "Output.mkv"
+          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm masterofzen/av1an:master --set-thread-affinity 2 -w 4 -i "Video.mp4" --ffmpeg " -map 0 -c:s copy" -m lsmash --concat mkvmerge --force --verbose -e x265 -v " -p slow --rc-lookahead 50 --rdoq-level 2 --bframes 8 --ref 4 --subme 3 --qcomp 0.60 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.00 --psy-rdoq 1.00 --no-sao --crf 24 " -a="-c:a aac -ac 2 -b:a 128k" -o "Output.mkv"
         done
     - name: Zip
       run: |
@@ -46,4 +46,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Upload
-        path: /home/runner/encode/Output.mkv
+        path: /home/runner/encode/Output.mp4
