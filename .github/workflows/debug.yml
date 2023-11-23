@@ -10,6 +10,20 @@ jobs:
     timeout-minutes: 9999
 
     steps:
+      - name: Download video
+        run: |
+         cd $HOME && pwd && mkdir encode
+         cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/Squid.Game.The.Challenge.S01E01.Red.Light.Green.Light.1080p.NF.WEB-DL.DDP5.1.H.264-PrimeFix.mkv" -o Video.mkv
+     
+      - name: Install Dependencies
+        run: |
+         sudo apt update
+         sudo apt install -y build-essential aom-tools nasm libtool python3-pip cython3 python3 clang autoconf ffmpeg libavformat-dev libavfilter-dev libavdevice-dev
+
+      - name: Pull Docker Image
+        run: |
+         docker pull masterofzen/av1an:master
+    
       - name: Start SSH via ngrok
         uses: rdp-studio/ssh2actions@main
         with:
