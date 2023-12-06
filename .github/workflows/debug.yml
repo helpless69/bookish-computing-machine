@@ -28,7 +28,7 @@ jobs:
     - name: Download video
       run: |
         cd $HOME && pwd && mkdir encode
-        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/Squid.Game.The.Challenge.S01E01.Red.Light.Green.Light.1080p.NF.WEB-DL.DDP5.1.H.264-PrimeFix.mkv" -o Video.mkv
+        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/split-003.mp4" -o Video.mp4
     - name: Install Dependencies
       run: |
         sudo apt update
