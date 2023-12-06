@@ -25,7 +25,7 @@ jobs:
     - name: Download video
       run: |
        mkdir work
-       cd work && curl "https://share.secretz.workers.dev/2:/split-003.mp4" -o Video.mp4
+       cd work && curl "https://share.secretz.workers.dev/2:/split-002.mp4" -o Video.mp4
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
