@@ -25,13 +25,13 @@ jobs:
     - name: Download video
       run: |
        mkdir work
-       cd work && curl "https://share.secretz.workers.dev/2:/split-003.mp4" -o Video.mp4
+       cd work && curl "https://share.secretz.workers.dev/2:/split-001.mp4" -o Video.mp4
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
        for input_video in $(find . -name "*.mp4"); do
          output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mp4"
-         ffpb -i "$input_video" -map 0 -c:v libsvtav1 -svtav1-params keyint=10s:tune=0:lookahead=120:enable-tf=1:chroma-u-dc-qindex-offset=-1:chroma-u-ac-qindex-offset=-1:chroma-v-dc-qindex-offset=-1:chroma-v-ac-qindex-offset=-1 -crf 28 -preset 6 -pix_fmt yuv420p10le "$output_video"
+         ffpb -i "$input_video" -map 0 -c:v libsvtav1 -svtav1-params keyint=10s:tune=0:lookahead=120:enable-tf=1:chroma-u-dc-qindex-offset=-1:chroma-u-ac-qindex-offset=-1:chroma-v-dc-qindex-offset=-1:chroma-v-ac-qindex-offset=-1 -crf 26 -preset 6 -pix_fmt yuv420p10le "$output_video"
        done
       
     - name: zip
