@@ -31,7 +31,7 @@ jobs:
     - name: Encode
       run: |
         cd $HOME && cd encode
-        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm masterofzen/av1an:master --set-thread-affinity 2 -w 2 -i "Video.mp4" --ffmpeg " -map 0 -c:s copy" --concat mkvmerge --force --verbose -e svt-av1 --video-params "--crf 24 --aq-mode 0 --tune 0 --keyint 0 --lookahead 120 --irefresh-type 1 --lp 2 --color-primaries 1 --transfer-characteristics 1 --matrix-coefficients 1 --color-range 0 --enable-overlays 1 --scd 0 --enable-tf 0 --chroma-u-dc-qindex-offset -1 --chroma-u-ac-qindex-offset -1 --chroma-v-dc-qindex-offset -1 --chroma-v-ac-qindex-offset -1 --enable-qm 1 --qm-min 0 --qm-max 15 --preset 6" --pix-format yuv420p10le -a="-c:a aac -ac 2 -b:a 128k" -o "Output.mp4"
+        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm masterofzen/av1an:master --set-thread-affinity 2 -w 2 -i "Video.mp4" --ffmpeg " -map 0 -c:s copy" --concat mkvmerge --force --verbose -e svt-av1 --video-params "--crf 28 --aq-mode 0 --tune 0 --keyint 0 --lookahead 120 --irefresh-type 1 --lp 2 --color-primaries 1 --transfer-characteristics 1 --matrix-coefficients 1 --color-range 0 --enable-overlays 1 --scd 0 --enable-tf 0 --chroma-u-dc-qindex-offset -1 --chroma-u-ac-qindex-offset -1 --chroma-v-dc-qindex-offset -1 --chroma-v-ac-qindex-offset -1 --enable-qm 1 --qm-min 0 --qm-max 15 --preset 6" --pix-format yuv420p10le -a="-c:a aac -ac 2 -b:a 128k" -o "Output.mp4"
     - name: Zip
       run: |
         cd $HOME
