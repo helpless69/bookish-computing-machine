@@ -31,8 +31,8 @@ jobs:
        cd work && pwd && mkdir encode
        for input_video in $(find . -name "*.mkv"); do
          output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
-         ffpb -i "$input_video" -map 0 -c:v libsvtav1 -svtav1-params filmgrain=20:film-grain-denoise=0:tune=2:enable-qm=1:qm-min=0:qm-max=15:aq-mode=0:irefresh-type=1:keyint=10s:lookahead=120:enable-tf=1:color-primaries=1:transfer-characteristics=1:matrix-coefficients=1:color-range=0:enable-overlays=1:chroma-u-dc-qindex-offset=-1:chroma-u-ac-qindex-offset=-1:chroma-v-dc-qindex-offset=-1:chroma-v-ac-qindex-offset=-1  -crf 25 -preset 6 -pix_fmt yuv420p10le "$output_video"
-        done
+         ffpb -i "$input_video" -map 0 -c:v libsvtav1 -svtav1-params filmgrain=20:film-grain-denoise=0:tune=2:enable-qm=1:qm-min=0:qm-max=15:aq-mode=0:irefresh-type=1:keyint=10s:lookahead=120:enable-tf=1:color-primaries=1:transfer-characteristics=1:matrix-coefficients=1:color-range=0:enable-overlays=1:chroma-u-dc-qindex-offset=-1:chroma-u-ac-qindex-offset=-1:chroma-v-dc-qindex-offset=-1:chroma-v-ac-qindex-offset=-1 -crf 25 -preset 6 -pix_fmt yuv420p10le "$output_video"
+       done
       
     - name: zip
       run: |
