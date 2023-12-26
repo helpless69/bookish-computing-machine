@@ -25,7 +25,7 @@ jobs:
     - name: Download video
       run: |
         cd $HOME && pwd && mkdir encode
-        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/split-003.mp4" -o Video.mp4
+        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/Bocchi%20the%20Rock!%20(BD%201080p%20HEVC%20Opus)%20%5BRecluse%5D/Extras/%5BRecluse%5D%20Bocchi%20the%20Rock!%20-%20NCED%2001%20(BD%201080p%20HEVC%20Opus)%20%5B361CD212%5D.mkv" -o Video.mkv
     - name: Install Dependencies
       run: |
         sudo apt update
@@ -34,7 +34,7 @@ jobs:
     - name: Encode
       run: |
         cd $HOME && cd encode
-        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm masterofzen/av1an:master --set-thread-affinity 4 -i "Video.mp4" --ffmpeg " -map 0 -c:s copy" --concat mkvmerge --force --verbose -e x265 -v " -p slow --rc-lookahead 120 --rdoq-level 2 --bframes 8 --ref 4 --subme 3 --qcomp 0.60 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.00 --psy-rdoq 1.00 --no-sao --crf 24 " -a="-c:a aac -ac 2 -b:a 128k" -o "Output.mp4"
+        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm masterofzen/av1an:master -i "Video.mkv" --resume -x 240 -e svt-av1 -c mkvmerge -m dgdecnv --verbose --set-thread-affinity=2 -a " -c:a copy " -v " --lp 2 --keyint 0 --enable-qm 1 --qm-min 0 --qm-max 15 --enable-overlays 1 --aq-mode 2 --color-primaries 1 --transfer-characteristics 1 --matrix-coefficients 1 --color-range 0 --film-grain-denoise 0 --tune 0 --preset 4 --crf 28 " --photon-noise=6 --chroma-noise -w 4 -o "Output.mkv"
         
     - name: Zip
       run: |
@@ -44,4 +44,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Upload
-        path: /home/runner/encode/Output.mp4
+        path: /home/runner/encode/Output.mkv
