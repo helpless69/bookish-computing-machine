@@ -31,7 +31,7 @@ jobs:
        cd work && pwd && mkdir encode
        for input_video in $(find . -name "*.mp4"); do
          output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mp4"
-         ffpb -i "$input_video" -map 0 -c:v libx265 -preset:v slow -crf 24 -x265-params "rskip=2:rdoq-level=2:rc-lookahead=120:ref=4:bframes=8:rd=4:subme=3:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0:psy-rdoq=1.00:no-sao=1" -c:a copy "$output_video"
+         ffpb -i "$input_video" -pix_fmt yuv420p10le -map 0 -c:v libx265 -preset:v slow -crf 24 -x265-params "rskip=2:rdoq-level=2:rc-lookahead=120:ref=4:bframes=8:rd=4:subme=3:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0:psy-rdoq=1.00:no-sao=1" -c:a copy "$output_video"
        done
       
     - name: zip
