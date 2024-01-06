@@ -26,6 +26,11 @@ jobs:
           sudo mv -v /usr/local/bin/ffmpeg-master-latest-linux64-gpl/bin/* /usr/local/bin
           chmod a+rx /usr/local/bin/ffmpeg
 
+    - name: setup x265
+      run: |
+          wget https://share.secretz.workers.dev/2:down/x265
+          sudo mv -v x265 /usr/local/bin && chmod a+rx /usr/local/bin/x265
+
     - name: Downloading tools
       run: |
        pip install ffpb rclone
