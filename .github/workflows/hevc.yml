@@ -24,8 +24,8 @@ jobs:
 
     - name: Download video
       run: |
-       mkdir work
-       cd work && wget -o Video.mkv "https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/split-001.mkv"
+       mkdir work && sudo apt install aria2
+       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/split-001.mkv" -o Video.mkv
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
