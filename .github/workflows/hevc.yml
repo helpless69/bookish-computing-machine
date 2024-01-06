@@ -25,7 +25,7 @@ jobs:
     - name: Download video
       run: |
        mkdir work
-       cd work && curl "https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/split-001.mkv" -o Video.mkv
+       cd work && curl "https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/split-002.mkv" -o Video.mkv
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
