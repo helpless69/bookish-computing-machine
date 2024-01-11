@@ -25,7 +25,7 @@ jobs:
     - name: Download video
       run: |
        mkdir work && sudo apt install aria2
-       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/Berlin.S01E01.The.Energy.of.Love.2160p.NF.WEB-DL.MULTI.DDP5.1.Atmos.H.265-Telly.mkv" -o Video.mkv
+       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/1:/hentai.mkv" -o Video.mkv
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
