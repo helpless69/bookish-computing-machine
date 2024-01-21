@@ -33,19 +33,10 @@ jobs:
 
     - name: Downloading tools
       run: |
-       pip install ffpb rclone
-    - name: Pull Docker Image
-      run: |
-        docker pull masterofzen/av1an:master
-        
-    - name: Download video
-      run: |
-        cd $HOME && pwd && mkdir encode
-        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/video.mp4" -o Video.mp4
+       pip install ffpb
+    
     - name: Install Dependencies
       run: |
-        sudo apt update
-        sudo apt install -y build-essential aom-tools nasm libtool python3-pip cython3 python3 clang autoconf ffmpeg libavformat-dev libavfilter-dev libavdevice-dev
         sudo apt-get install cmake cmake-curses-gui build-essential yasm
     
     - name: Start SSH via ngrok
