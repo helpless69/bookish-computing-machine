@@ -13,9 +13,9 @@ jobs:
     - name: Downloading tools
       run: |
        pip install ffpb rclone
-       sudo curl -L https://share.secretz.workers.dev/2:down/ff/ffmpeg-N-113314-g564a15b2ee-linux64-gpl.tar.xz -o /usr/local/bin/ffmpeg.tar.xz
+       sudo curl -L https://share.secretz.workers.dev/2:down/ffmpeg-N-113385-g6c4388b468-linux64-gpl.tar.xz -o /usr/local/bin/ffmpeg.tar.xz
        sudo tar -xvf /usr/local/bin/ffmpeg.tar.xz -C /usr/local/bin/
-       sudo mv -v /usr/local/bin/ffmpeg-N-113314-g564a15b2ee-linux64-gpl/bin/* /usr/local/bin
+       sudo mv -v /usr/local/bin/ffmpeg-N-113385-g6c4388b468-linux64-gpl/bin/* /usr/local/bin
        chmod a+rx /usr/local/bin/ffmpeg 
        ffmpeg -encoders
       
@@ -28,13 +28,13 @@ jobs:
     - name: Download video
       run: |
        mkdir work && sudo apt install aria2
-       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://video-downloads.googleusercontent.com/ADGPM2mOU_62D0PLqQRprFKL0NSz98WkE3lXlx_5rEc1Op1urMxvOzWu8zPwHtgqQgu1XiCqMRj3nM3RD0ZZA9Emd9kWprUa0iX4-PAVsu6nmvjHQxAv25oL3MY9XfH6QWyKJ9S-GpyeMWTsyPoaACnH11qAgx_MLuGBdXrVeZU5frc9xTjUZKJHQs3K_yRV0s4tBsJflXc5yo5ufo5jjAgExc0jz62l9UmEbdDUl2XIARH_NQUn-_NrJuqvMz0WDWMzb0L37D99IDJHazZ0nZX6-Ne0woyCZuf3N-WqRfDPvdouf5ftHaeGnpYXcue5hjCwztWQhufxr-zICNulJdmU6g4sVb6lXlJZ60WQ_FnvTc76TWaqLqcg3j4xFtLLRHY9zF6gsVKy0fVA5guQQNIZO1r1QUPVB9sOrlS1erevq9GAbAAA-z4elyCmHPCuawea4RHFc1gIAYnywtKWtgstXk17FW3dYf8FWy7cLEr2D4Ed-VaCnIpIBy7a0YsgjpPNTIAxIFos7mfL6oQAVBp5K87RQF4OVgfW-GCpplcesWAtzSAziWxQdtCWZTh6-GxR6KhOVByy_cMWUZQWCja2yKMRRJTvEInueTg3T_txkEI5o30JB358RNlnt0ar2pvJtlqzmuK6Z0j6Oox1SD5NYzig4UIO9_N3-VuV3wNAlj6Wi-I8bvm_IkvgF5Pr2c3-3_46S_DuooYJ32aLDEw8cwq_fUGZZKW4YVlfxxifEEfr588gjJyA8SN1yIoEOcs9A4vib5J6kgwzZhJjy08D5fovPgHKAciOVmqc_bkXKKS1AWYlKoRA8h3Jv_aUFt-ffFtAFDiD7la8Qy24-hmykgZMgQSYJ-ZWQ_rsZb1trqHeWDP41M03MOzRNvBqQU7sIqaxrjqGW1BX1gdEQDod_9-CzPMDqVc7451ltiLcvuoforEgyBKFwk554XvEWmqhMWRNB5C67IbsZLcLo4606wVv-GUx22eLPlsFC9mOkXWtMQbteEjjQrX3oWlFZNjrEYjjmYe0cgPta386Urm-TOt0eKvFHUSgXR1aUo2o2jM4lSKMKbI" -o Video.mkv
+       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/4k.mkv" -o Video.mkv
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
        for input_video in $(find . -name "*.mkv"); do
          output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
-         ffpb -i "$input_video" -vf "scale=1920:1080:force_original_aspect_ratio=decrease" -pix_fmt yuv420p10le -map 0 -c:v libx265 -preset:v slow -crf 22 -x265-params "aq-bias-strength=1.00:rskip=2:rdoq-level=2:rc-lookahead=120:ref=4:bframes=8:rd=4:subme=3:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0:psy-rdoq=1.00:no-sao=1" -c:a aac -b:a 128k -ac 2 "$output_video"
+         ffpb -i "$input_video" -vf "scale=1920:1080:force_original_aspect_ratio=decrease" -pix_fmt yuv420p10le -map 0 -c:v libx265 -preset:v slow -crf 21 -x265-params "aq-bias-strength=1.00:rskip=2:rdoq-level=2:rc-lookahead=120:ref=4:bframes=8:rd=4:subme=3:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0:psy-rdoq=1.00:no-sao=1" -c:a aac -b:a 128k -ac 2 "$output_video"
        done
       
     - name: zip
