@@ -34,7 +34,7 @@ jobs:
        cd work && pwd && mkdir encode
        for input_video in $(find . -name "*.mp4"); do
          output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mp4"
-         ffpb -y -i "$input_video" -threads 4 -vf "scale=1920:1080:force_original_aspect_ratio=decrease" -pix_fmt yuv420p10le -map 0 -c:s copy -c:v libx265 -preset:v slow -crf 23 -x265-params "aq-bias-strength=1.00:rskip=0:rdoq-level=2:rc-lookahead=120:ref=5:bframes=8:rd=4:subme=5:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.70:aq-mode=3:aq-strength=0.80:psy-rd=2.0:psy-rdoq=2.00:no-sao=1:output-depth=10:deblock=-2,-2:min-keyint=23:keyin=240:no-open-gop=true:tu-intra-depth=2:tu-inter-depth=2:no-sao-non-deblock=true:no-strong-intra-smoothing=true:b-intra=true:weightb=true:cbqpoffs=-2:crqpoffs=-2:no-cutree=true:qpstep=2:no-rect=true:tskip=true" -c:a aac -b:a 128k -ac 2 "$output_video"
+         ffpb -i "$input_video" -pix_fmt yuv420p10le -map 0 -c:s copy -c:v libx265 -preset:v slow -crf 23 -x265-params "aq-bias-strength=1.00:rskip=0:rdoq-level=2:rc-lookahead=120:ref=5:bframes=8:rd=4:subme=5:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.70:aq-mode=3:aq-strength=0.80:psy-rd=2.0:psy-rdoq=2.00:no-sao=1" -c:a aac -b:a 128k -ac 2 "$output_video"
        done
       
     - name: zip
