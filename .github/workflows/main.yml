@@ -28,7 +28,7 @@ jobs:
     - name: Download video
       run: |
        mkdir work && sudo apt install aria2
-       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://helpless69.vercel.app/api/raw/?path=/One-Punch.Man.S01E01.The.Strongest.Man.1080p.BluRay.REMUX.AVC.FLAC.2.0-EPSiLON%20%20(HunTer).mkv" -o Video.mkv
+       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://files.tachiken.eu.org/api/raw/?path=/Frieren%20Beyond%20Journeys%20End/%5BTACHiKEN%5D%20Frieren%20Beyond%20Journey%60s%20End%20(BDRip%201920x1080%20x264%20FLAC)/%5BTACHiKEN%5D%20Frieren%20Beyond%20Journey%60s%20End%20-%2002%20-%20It%20Didn%60t%20Have%20to%20Be%20Magic%20(BDRip%201920x1080%20x264%20FLAC)%20%5BF0C4BBF4%5D.mkv" -o Video.mkv
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
