@@ -28,7 +28,7 @@ jobs:
     - name: Download video
       run: |
        mkdir work && sudo apt install aria2
-       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://files.tachiken.eu.org/api/raw/?path=/Frieren%20Beyond%20Journeys%20End/%5BTACHiKEN%5D%20Frieren%20Beyond%20Journey%60s%20End%20(BDRip%201920x1080%20x264%20FLAC)/%5BTACHiKEN%5D%20Frieren%20Beyond%20Journey%60s%20End%20-%2003%20-%20Killing%20Magic%20(BDRip%201920x1080%20x264%20FLAC)%20%5B4C21E0FC%5D.mkv" -o Video.mkv
+       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://files.tachiken.eu.org/api/raw/?path=/Frieren%20Beyond%20Journeys%20End/%5BTACHiKEN%5D%20Frieren%20Beyond%20Journey%60s%20End%20(BDRip%201920x1080%20x264%20FLAC)/%5BTACHiKEN%5D%20Frieren%20Beyond%20Journey%60s%20End%20-%2004%20-%20The%20Land%20Where%20Souls%20Rest%20(BDRip%201920x1080%20x264%20FLAC)%20%5B8E932450%5D.mkv" -o Video.mkv
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
