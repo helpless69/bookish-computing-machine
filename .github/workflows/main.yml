@@ -28,13 +28,13 @@ jobs:
     - name: Download video
       run: |
        mkdir work && sudo apt install aria2
-       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://files.tachiken.eu.org/api/raw/?path=/Frieren%20Beyond%20Journeys%20End/%5BTACHiKEN%5D%20Frieren%20Beyond%20Journey%60s%20End%20(BDRip%201920x1080%20x264%20FLAC)/%5BTACHiKEN%5D%20Frieren%20Beyond%20Journey%60s%20End%20-%2004%20-%20The%20Land%20Where%20Souls%20Rest%20(BDRip%201920x1080%20x264%20FLAC)%20%5B8E932450%5D.mkv" -o Video.mkv
+       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://helpless69.vercel.app/api/raw/?path=/Mushoku.Tensei.S02E01-E12.1080p.BluRay.REMUX.Dual-Audio.AVC.FLAC2.0-RUDY/Mushoku.Tensei.S02E01.The.Brokenhearted.Mage.1080p.BluRay.REMUX.Dual-Audio.AVC.FLAC2.0-RUDY.mkv" -o Video.mkv
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
        for input_video in $(find . -name "*.mkv"); do
          output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
-         ffpb -y -i "$input_video" -threads 0 -pix_fmt yuv420p10le -map 0 -c:s copy -c:v libx265 -preset:v slow -crf 18 -x265-params "aq-bias-strength=1.00:rskip=2:rdoq-level=2:rc-lookahead=120:ref=4:bframes=8:rd=4:subme=3:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.70:aq-mode=3:aq-strength=0.80:psy-rd=2.0:psy-rdoq=2.00:no-sao=1:output-depth=10:deblock=-2,-2:min-keyint=23:keyin=240:no-open-gop=1:tu-intra-depth=2:tu-inter-depth=2:no-sao-non-deblock=1:no-strong-intra-smoothing=1:qpstep=2" -c:a aac -b:a 128k -ac 2 "$output_video"
+         ffpb -y -i "$input_video" -threads 0 -pix_fmt yuv420p10le -map 0 -c:s copy -c:v libx265 -preset:v slow -crf 18 -x265-params "aq-bias-strength=1.00:rskip=2:rdoq-level=2:rc-lookahead=120:ref=4:bframes=8:rd=4:subme=3:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.70:aq-mode=3:aq-strength=0.80:psy-rd=2.0:psy-rdoq=2.00:no-sao=1:output-depth=10:deblock=-2,-2:min-keyint=23:keyin=240:no-open-gop=1:tu-intra-depth=2:tu-inter-depth=2:no-sao-non-deblock=1:no-strong-intra-smoothing=1:qpstep=2" -c:a copy "$output_video"
        done
       
     - name: zip
