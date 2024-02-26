@@ -28,7 +28,7 @@ jobs:
     - name: Download video
       run: |
        mkdir work && sudo apt install aria2
-       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://helpless69.vercel.app/api/raw/?path=/Mushoku.Tensei.S02E01-E12.1080p.BluRay.REMUX.Dual-Audio.AVC.FLAC2.0-RUDY/Mushoku.Tensei.S02E01.The.Brokenhearted.Mage.1080p.BluRay.REMUX.Dual-Audio.AVC.FLAC2.0-RUDY.mkv" -o Video.mkv
+       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://helpless69.vercel.app/api/raw/?path=/Mushoku.Tensei.S02E01-E12.1080p.BluRay.REMUX.Dual-Audio.AVC.FLAC2.0-RUDY/Mushoku.Tensei.S00E02.Guardian.Fitz.1080p.BluRay.REMUX.Dual-Audio.AVC.FLAC2.0-RUDY.mkv" -o Video.mkv
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
