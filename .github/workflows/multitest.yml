@@ -18,18 +18,18 @@ jobs:
     - name: Download video
       run: |
        mkdir work && sudo apt install aria2
-       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/GDFlix/SONE-228.mp4"
+       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/vid.mp4"
        
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
        for input_video in $(find . -name "*.mp4"); do
-         output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mp4"
-         ffmpeg -t 300 -i "$input_video" -map 0 -c:v copy -c:a copy "$output_video"
-         ffmpeg -t 300 -i "$output_video" -pix_fmt yuv420p10le -map 0 -c:v libx265 -preset:v slow -crf 18 -x265-params "aq-bias-strength=1.00:rdoq-level=2:rc-lookahead=120:ref=4:bframes=8:rd=4:subme=3:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0:psy-rdoq=1.00" -c:a copy /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/1_hevc__slow_crf18.mkv
-         ffpb -t 300 -i "$output_video" -c:v libx264 -preset:v slow -crf 21 -x264-params "rc-lookahead=120:ref=4:bframes=8:subme=3:colorprim=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0" -c:a copy /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/2_x264_slow_21.mkv
-         ffpb -t 300 -i "$output_video" -c:v libx264 -preset:v veryslow -crf 21 -x264-params "rc-lookahead=120:ref=4:bframes=8:subme=3:colorprim=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0" -c:a copy /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/3_x264_veryslow_21.mkv
-         ffpb -t 300 -i "$output_video" -c:v libx264 -preset:v slow -crf 24 -x264-params "rc-lookahead=120:ref=4:bframes=8:subme=3:colorprim=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0" -c:a copy /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/4_x264_slow_24.mkv
+        output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mp4"
+        ffmpeg -t 300 -i "$input_video" -map 0 -c:v copy -c:a copy "$output_video" > /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/ffmpeg_copy_output.txt 2>&1
+        ffpb -t 300 -i "$output_video" -pix_fmt yuv420p10le -map 0 -c:v libx265 -preset:v slow -crf 18 -x265-params "aq-bias-strength=1.00:rdoq-level=2:rc-lookahead=120:ref=4:bframes=8:rd=4:subme=3:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0:psy-rdoq=1.00" -c:a copy /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/1_hevc__slow_crf18.mkv > /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/1_hevc__slow_crf18.txt 2>&1
+        ffpb -t 300 -i "$output_video" -c:v libx264 -preset:v slow -crf 21 -x264-params "rc-lookahead=120:ref=4:bframes=8:subme=3:colorprim=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0" -c:a copy /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/2_x264_slow_21.mkv > /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/ffpb_encode2_output.txt 2>&1
+        ffpb -t 300 -i "$output_video" -c:v libx264 -preset:v veryslow -crf 21 -x264-params "rc-lookahead=120:ref=4:bframes=8:subme=3:colorprim=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0" -c:a copy /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/3_x264_veryslow_21.mkv > /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/ffpb_encode3_output.txt 2>&1
+        ffpb -t 300 -i "$output_video" -c:v libx264 -preset:v slow -crf 24 -x264-params "rc-lookahead=120:ref=4:bframes=8:subme=3:colorprim=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0" -c:a copy /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/4_x264_slow_24.mkv > /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/ffpb_encode4_output.txt 2>&1
        done
        
       
