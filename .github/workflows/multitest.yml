@@ -8,28 +8,23 @@ jobs:
     steps:
     - name: Downloading tools
       run: |
-       pip install ffpb rclone
+       pip install ffpb
        sudo curl -L https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz -o /usr/local/bin/ffmpeg.tar.xz
        sudo tar -xvf /usr/local/bin/ffmpeg.tar.xz -C /usr/local/bin/
        sudo mv -v /usr/local/bin/ffmpeg-master-latest-linux64-gpl/bin/* /usr/local/bin
        chmod a+rx /usr/local/bin/ffmpeg 
-       ffmpeg -encoders
-      
-      
-    - name: Setup Rclone
-      uses: AnimMouse/setup-rclone@v1
-      with:
-       rclone_config: ${{ secrets.RCLONE_CONFIG }} 
+       ffmpeg -encoders 
 
     - name: Download video
       run: |
        mkdir work && sudo apt install aria2
-       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/Doraemon.2021.S18.1080p.Hotstar.WEB-DL.Multi.Audio.AAC2.0.x264-Telly/Doraemon.2021.S18E01.Lets.Grow.Fireworks!.Dividing.Hammer.1080p.Hotstar.WEB-DL.Multi.Audio.AAC2.0.x264-Telly.mkv" -x 16 -s 16 -j 16
+       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/GDFlix/SONE-228.mp4"
+       
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
-       for input_video in $(find . -name "*.mkv"); do
-         output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
+       for input_video in $(find . -name "*.mp4"); do
+         output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mp4"
          ffpb -ss 120 -t 300 -i "$input_video" -map 0 -c:v copy -c:a copy "$output_video"
          ffpb -ss 120 -t 300 -i "$output_video" -pix_fmt yuv420p10le -map 0 -c:v libx265 -preset:v slow -crf 18 -x265-params "aq-bias-strength=1.00:rdoq-level=2:rc-lookahead=120:ref=4:bframes=8:rd=4:subme=3:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0:psy-rdoq=1.00" -c:a copy /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/crf18.mkv
          ffpb -ss 120 -t 300 -i "$output_video" -pix_fmt yuv420p10le -map 0 -c:v libx265 -preset:v slow -crf 21 -x265-params "aq-bias-strength=1.00:rdoq-level=2:rc-lookahead=120:ref=4:bframes=8:rd=4:subme=3:high-tier=1:range=limited:colorprim=1:colormatrix=1:transfer=1:qcomp=0.60:aq-mode=3:aq-strength=1.00:psy-rd=2.0:psy-rdoq=1.00" -c:a copy /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/crf21.mkv
