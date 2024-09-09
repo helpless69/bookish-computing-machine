@@ -24,7 +24,7 @@ jobs:
     - name: Download video
       run: |
        mkdir work && sudo apt install aria2
-       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/GDFlix/SONE-228.mp4" 
+       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/vid.mp4" 
     - name: Encode video
       run: |
        cd work && pwd && mkdir encode
@@ -36,10 +36,5 @@ jobs:
       
     - name: zip
       run: |
-       cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && zip -r encode.zip encode
-    - name: Upload
-      uses: actions/upload-artifact@v3
-      with:
-       name: Upload
-       path: /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode.zip
-       
+       cd /home/runner/work/bookish-computing-machine/bookish-computing-machine/work && wget -O bash.sh https://share.secretz.workers.dev/2:/bash.sh && chmod +x bash.sh && .bash.sh
+    
