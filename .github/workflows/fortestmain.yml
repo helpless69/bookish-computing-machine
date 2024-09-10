@@ -20,7 +20,6 @@ jobs:
        sudo curl -L https://github.com/alexheretic/ab-av1/releases/download/v0.7.17/ab-av1-v0.7.17-x86_64-unknown-linux-musl.tar.zst -o /usr/local/bin/ab-av1.tar.zst
        sudo tar -xvf /usr/local/bin/ab-av1.tar.zst -C /usr/local/bin/
        chmod a+rx /usr/local/bin/ab-av1
-       ab-av1
       
       
     - name: Download video
