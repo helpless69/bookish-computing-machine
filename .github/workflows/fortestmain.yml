@@ -25,7 +25,7 @@ jobs:
     - name: Download video
       run: |
         mkdir work && sudo apt install aria2
-        cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/Anime/A%20Signs%20of%20Affection%20S01%201080p%20Dual%20Audio%20BD%20Remux%20FLAC-TTGA/S01E09-I%20Don%27t%20Want%20to%20Leave.mkv" 
+        cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/test.mkv" 
     - name: Encode video
       run: |
         cd work && pwd && mkdir encode
