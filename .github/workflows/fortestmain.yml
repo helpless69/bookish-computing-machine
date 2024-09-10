@@ -14,19 +14,26 @@ jobs:
        sudo mv -v /usr/local/bin/ffmpeg-master-latest-linux64-gpl/bin/* /usr/local/bin
        chmod a+rx /usr/local/bin/ffmpeg 
        ffmpeg -encoders
+
+    - name: ab-av1
+      run: |
+       sudo curl -L https://github.com/alexheretic/ab-av1/releases/download/v0.7.17/ab-av1-v0.7.17-x86_64-unknown-linux-musl.tar.zst -o /usr/local/bin/ab-av1.tar.zst
+       sudo tar -xvf /usr/local/bin/ab-av1.tar.zst -C /usr/local/bin/
+       chmod a+rx /usr/local/bin/ab-av1
+       ab-av1
       
       
     - name: Download video
       run: |
-       mkdir work && sudo apt install aria2
-       cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/GDFlix/SONE-228.mp4" 
+        mkdir work && sudo apt install aria2
+        cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/GDFlix/SONE-228.mp4" 
     - name: Encode video
       run: |
-       cd work && pwd && mkdir encode
-       for input_video in $(find . -name "*.mp4"); do
-         output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mkv"
-         ffpb -i "$input_video" -map 0 -c:v libx265 -pix_fmt yuv420p10le -preset:v slow -crf 21.5 -x265-params "rskip=2:rdoq-level=2:rc-lookahead=120:ref=4:bframes=8:rd=4:subme=3:high-tier=1:qcomp=0.70:aq-mode=3:aq-strength=1.00:psy-rd=2.0:psy-rdoq=2.00:no-sao=1:output-depth=10:deblock=-2,-2:min-keyint=23:keyin=240:no-open-gop=1:tu-intra-depth=2:tu-inter-depth=2:no-sao-non-deblock=1:no-strong-intra-smoothing=1:qpstep=2" -c:a copy "$output_video"
-       done
+        cd work && pwd && mkdir encode
+        for input_video in $(find . -name "*.mp4"); do
+          output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mp4).mkv"
+          ffpb -i "$input_video" -map 0 -c:v libx265 -pix_fmt yuv420p10le -preset:v slow -crf 21.5 -x265-params "rskip=2:rdoq-level=2:rc-lookahead=120:ref=4:bframes=8:rd=4:subme=3:high-tier=1:qcomp=0.70:aq-mode=3:aq-strength=1.00:psy-rd=2.0:psy-rdoq=2.00:no-sao=1:output-depth=10:deblock=-2,-2:min-keyint=23:keyin=240:no-open-gop=1:tu-intra-depth=2:tu-inter-depth=2:no-sao-non-deblock=1:no-strong-intra-smoothing=1:qpstep=2" -c:a copy "$output_video"
+        done
        
     - name: Setup Rclone
       uses: AnimMouse/setup-rclone@v1
