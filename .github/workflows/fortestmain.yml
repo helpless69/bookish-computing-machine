@@ -25,7 +25,7 @@ jobs:
     - name: Download video
       run: |
         mkdir work && sudo apt install aria2
-        cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/GDFlix/SONE-228.mp4" 
+        cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/split-001.mkv" 
     - name: Encode video
       run: |
         cd work && pwd && mkdir encode
