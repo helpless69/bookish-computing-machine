@@ -25,13 +25,13 @@ jobs:
     - name: Download video
       run: |
         mkdir work && sudo apt install aria2
-        cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/split-001.mkv" 
+        cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/Anime/A%20Signs%20of%20Affection%20S01%201080p%20Dual%20Audio%20BD%20Remux%20FLAC-TTGA/S01E09-I%20Don%27t%20Want%20to%20Leave.mkv" 
     - name: Encode video
       run: |
         cd work && pwd && mkdir encode
         for input_video in $(find . -name "*.mkv"); do
           output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
-          ffpb -i "$input_video" -c:v libx265 -pix_fmt yuv420p10le -crf 21.5 -x265-params "no-cutree=1:qpstep=4:b-intra=1:rskip=0:weightb=1:max-merge=5:rdoq-level=2:rc-lookahead=120:ref=5:bframes=8:rd=3:subme=5:qcomp=0.70:aq-mode=3:aq-strength=0.85:psy-rd=2.0:psy-rdoq=2.00:min-keyint=23:keyint=250:no-open-gop=1:lookahead-slices=0" -c:a copy "$output_video"
+          ffpb -i "$input_video" -c:v libx265 -pix_fmt yuv420p10le -crf 18 -x265-params "no-cutree=1:qpstep=4:b-intra=1:rskip=0:weightb=1:max-merge=5:rdoq-level=2:rc-lookahead=120:ref=5:bframes=8:rd=3:subme=5:qcomp=0.70:aq-mode=3:aq-strength=0.85:psy-rd=2.0:psy-rdoq=2.00:min-keyint=23:keyint=250:no-open-gop=1:lookahead-slices=0" -c:a copy "$output_video"
         done
        
     - name: Setup Rclone
