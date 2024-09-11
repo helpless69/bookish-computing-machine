@@ -28,13 +28,13 @@ jobs:
     - name: Download video
       run: |
         mkdir work && sudo apt install aria2
-        cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/split-001.mkv" 
+        cd work && aria2c --summary-interval=5 -x 16 -s 16 -j 16  "https://share.secretz.workers.dev/2:/split-004.mkv" 
     - name: Encode video
       run: |
         cd work && pwd && mkdir encode
         for input_video in $(find . -name "*.mkv"); do
           output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
-          ffmpeg -i "$input_video" -an -sn -vsync 0 -strict -1 -f yuv4mpegpipe - | x265 --input - --output-depth 10 --y4m --crf 21 --output "/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/final.mkv"
+          ffmpeg -i "$input_video" -an -sn -vsync 0 -strict -1 -f yuv4mpegpipe - | x265 --preset slow --input - --rc-lookahead 120 --ref 4 --bframes 8 --subme 3 --qcomp 0.65 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.0 --output-depth 10 --y4m --crf 21 --output "/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/final.mkv"
         done
        
     - name: Setup Rclone
