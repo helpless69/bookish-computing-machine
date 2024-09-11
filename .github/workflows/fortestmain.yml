@@ -16,7 +16,6 @@ jobs:
        wget https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x265 -O x265
        sudo mv -v x265 /usr/local/bin
        chmod a+rx /usr/local/bin/x265
-       x265
        
 
     - name: ab-av1
@@ -35,7 +34,8 @@ jobs:
         cd work && pwd && mkdir encode
         for input_video in $(find . -name "*.mkv"); do
           output_video="/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/$(basename $input_video .mkv).mkv"
-          ffmpeg -i "$input_video" -an -sn -vsync 0 -strict -1 -f yuv4mpegpipe "/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/video.y4m" | x265 --preset slow --input - --rc-lookahead 120 --ref 4 --bframes 8 --subme 3 --qcomp 0.65 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.0 --output-depth 10 --y4m --crf 21 --output "$output_video"
+          ffmpeg -i "$input_video" -an -sn -vsync 0 -strict -1 -f yuv4mpegpipe "/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/video.y4m"
+          x265 --preset slow --input "/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/video.y4m" --rc-lookahead 120 --ref 4 --bframes 8 --subme 3 --qcomp 0.65 --aq-mode 3 --aq-strength 1.00 --psy-rd 2.0 --output-depth 10 --y4m --crf 21 --output "/home/runner/work/bookish-computing-machine/bookish-computing-machine/work/encode/final.mkv"
         done
        
     - name: Setup Rclone
