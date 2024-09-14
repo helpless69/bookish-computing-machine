@@ -18,6 +18,10 @@ jobs:
     - name: Downloading tools
       run: |
        pip install rclone
+       wget https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x265 -O x265
+       sudo mv -v x265 /usr/local/bin
+       chmod a+rx /usr/local/bin/x265
+       x265 --version
     - name: Pull Docker Image
       run: |
         docker pull helpless69/av1an:latest
