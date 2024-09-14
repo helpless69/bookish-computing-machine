@@ -22,6 +22,7 @@ jobs:
        sudo mv -v x265 /usr/local/bin
        chmod a+rx /usr/local/bin/x265
        x265 --version
+       
     - name: Pull Docker Image
       run: |
         docker pull helpless69/av1an:latest
