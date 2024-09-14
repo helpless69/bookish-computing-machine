@@ -35,7 +35,7 @@ jobs:
     - name: Encode
       run: |
         cd /home/runner/encode && pwd && ls
-        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm helpless69/av1an:latest -i "video.mkv" --target-quality 95 --vmaf --pix-format yuv420p10le --resume -e x265 -c mkvmerge -v " --preset slow --keyint 240 --crf 18 --output-depth 10 --rc-lookahead 120 --aq-mode 3 --colorprim bt709 --transfer bt709 --colormatrix bt709 " -o "Output.mkv"
+        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm helpless69/av1an:latest -i "video.mkv" --pix-format yuv420p10le --resume -e x265 -c mkvmerge -v " --preset slow --keyint 240 --crf 18 --output-depth 10 --rc-lookahead 120 --aq-mode 3 --colorprim bt709 --transfer bt709 --colormatrix bt709 " -o "Output.mkv"
         
     - name: Zip
       run: |
