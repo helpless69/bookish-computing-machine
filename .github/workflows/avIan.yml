@@ -34,7 +34,7 @@ jobs:
     - name: Encode
       run: |
         cd $HOME && cd encode
-        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm helpless69/av1an:latest -i "video.mkv" --probing-rate 2 --target-quality 94 --vmaf --resume -e x265 -c mkvmerge --verbose " -c:a copy " -v " -p slow --crf 21.5 " -w 4 -o "Output.mkv"
+        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm helpless69/av1an:latest -i "video.mkv" --probing-rate 2 --target-quality 95 --vmaf --resume -e x265 -c mkvmerge --verbose -v " -p slow --crf 23 " -w 4 -o "Output.mkv"
         
     - name: Zip
       run: |
