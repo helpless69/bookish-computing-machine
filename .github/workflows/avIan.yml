@@ -38,10 +38,10 @@ jobs:
         
     - name: Zip
       run: |
-        cd $HOME
+        cd /home/runner && zip -r encode.zip encode
 
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
         name: Upload
-        path: /home/runner/encode/Output.mkv
+        path: /home/runner/encode.zip
