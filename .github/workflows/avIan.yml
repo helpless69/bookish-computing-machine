@@ -24,8 +24,8 @@ jobs:
         
     - name: Download video
       run: |
-        cd $HOME && pwd && mkdir encode
-        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -o video.mp4
+        cd /home/runner && pwd && mkdir encode
+        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -o video.mp4
     - name: Install Dependencies
       run: |
         sudo apt update -y
@@ -33,7 +33,7 @@ jobs:
 
     - name: Encode
       run: |
-        cd $HOME && cd encode
+        cd /home/runner/encode && pwd
         docker run --privileged -v "/home/runner/encode" --user $(id -u):$(id -g) -t --rm helpless69/av1an:latest -i "video.mkv" --probing-rate 2 --target-quality 95 --vmaf --resume -e x265 -c mkvmerge --verbose -v " -p slow --crf 23 " -w 4 -o "Output.mkv"
         
     - name: Zip
