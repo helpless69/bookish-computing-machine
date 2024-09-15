@@ -34,7 +34,7 @@ jobs:
     - name: Download video
       run: |
         mkdir -p /home/runner/encode && cd /home/runner/encode
-        curl -L "https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/video.mkv" -o video.mkv
+        curl -L "https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/11.mkv" -o video.mkv
 
     - name: Encode
       run: |
