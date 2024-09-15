@@ -40,7 +40,7 @@ jobs:
       run: |
         cd /home/runner/encode && pwd && ls
         docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -itd helpless69/av1an:latest -e x264 -o test.mkv
-        container_id=$(docker ps --filter name=your_container_name --format "{{.ID}}" | head -n 1)
+        container_id=$(docker ps --filter name=helpless69/av1an:latest --format "{{.ID}}" | head -n 1)
         echo "Container ID: $container_id"
         docker exec -it $container_id bash
         x264 --version
