@@ -39,13 +39,12 @@ jobs:
     - name: Encode
       run: |
        docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos helpless69/av1an:test -c "
-       whereis x264 && \
-       rm -f /usr/bin/x264 && \
-       curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x264 -o x264 && \
-       chmod 777 x264 && \
+       rm -f /usr/bin/x264 && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x264 -O x264 && chmod 777 x264 && \
        mv -v x264 /usr/bin/x264 && \
        x264 --version && \
-       whereis x264 && \
+       rm -f /usr/bin/x265 && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x265 -O x265 && chmod 777 x265 && \
+       mv -v x265 /usr/bin/x265 && \
+       x265 --version && \
        av1an -i video.mkv --verbose -w 0 --vmaf --resume -e x264 -c mkvmerge -v ' --crf 18.5 --preset slow --no-8x8dct --psy-rd 1.85:0 --no-fast-pskip --deadzone-inter 11 --aq-mode 3 --aq-strength 0.75 --ipratio 1 --pbratio 1 --qcomp 0.75 --vbv-init 1 --qpmax 40 --b-adapt 5 --rc-lookahead 120 --ref 4 --keyint 240 --min-keyint 23 --no-dct-decimate --deblock -2:-1 ' -o Output.mkv"
       
     - name: Zip
