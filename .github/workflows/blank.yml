@@ -45,8 +45,8 @@ jobs:
        rm -f /usr/bin/x265 && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x265 -o x265 && chmod 777 x265 && \
        mv -v x265 /usr/bin/x265 && \
        x265 --version && \
-       av1an -i video.mkv --verbose -w 0 --vmaf --resume -e x264 -c mkvmerge -v ' --crf 18.5 --preset slow --no-8x8dct --psy-rd 1.85:0 --no-fast-pskip --deadzone-inter 11 --aq-mode 3 --aq-strength 0.75 --ipratio 1 --pbratio 1 --qcomp 0.75 --vbv-init 1 --qpmax 40 --b-adapt 5 --rc-lookahead 120 --ref 4 --keyint 240 --min-keyint 23 --no-dct-decimate --deblock -2:-1 ' -o Output.mkv"
-      
+       av1an -i video.mkv --verbose -w 0 --vmaf --resume -e x264 -c mkvmerge -v ' --crf 18.5 --preset slow --no-8x8dct --psy-rd 1.85:0 --no-fast-pskip --deadzone-inter 11 --aq-mode 3 --aq-strength 0.75 --ipratio 1 --pbratio 1 --qcomp 0.75 --vbv-init 1 --qpmax 40 --b-adapt 5 --rc-lookahead 120 --ref 4 --keyint 240 --min-keyint 23 --no-dct-decimate --deblock -2:-1 ' -o x264.mkv"
+       av1an -i video.mkv -w 0 -target-quality 95 --vmaf --pix-format yuv420p10le --resume -e x265 -c mkvmerge -v " --crf 18 --qcomp 0.75 --rc-lookahead 60 --bframes 8 --aq-mode 3 --aq-strength 0.75 --subme 5 --ref 5 --rd 4 --max-merge 5 --rdoq-level 2 --psy-rdoq 2.0 --psy-rd 2.0 --min-keyint 24 --keyint 240 --tu-intra-depth 2 --tu-inter-depth 2 --cbqpoffs -2 --crqpoffs -2 --weightb --no-sao --no-strong-intra-smoothing --no-open-gop --lookahead-slices 0 --output-depth 10 " -o "x265.mkv"
     - name: Zip
       run: |
         rm /home/runner/encode/video.mkv && cd /home/runner && zip -r encode.zip encode
