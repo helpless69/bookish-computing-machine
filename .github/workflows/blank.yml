@@ -21,6 +21,10 @@ jobs:
        wget https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x265 -O x265
        sudo mv -v x265 /usr/local/bin
        chmod a+rx /usr/local/bin/x265
+       wget https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x264 -O x264
+       sudo mv -v x264 /usr/local/bin
+       chmod a+rx /usr/local/bin/x264
+       x264 --version
        x265 --version
        
     - name: Pull Docker Image
