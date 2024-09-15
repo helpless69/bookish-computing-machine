@@ -1,42 +1,48 @@
-name: nerdy
+name: Av1an test
+
 on: workflow_dispatch
 
 jobs:
-  build:
+  build-tools:
     runs-on: ubuntu-latest
-    timeout-minutes: 9999
-    
+
     steps:
-      - name: Downloading tools
-        run: |
-         pip install ffpb rclone
-         sudo curl -L https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz -o /usr/local/bin/ffmpeg.tar.xz
-         sudo tar -xvf /usr/local/bin/ffmpeg.tar.xz -C /usr/local/bin/
-         sudo mv -v /usr/local/bin/ffmpeg-master-latest-linux64-gpl/bin/* /usr/local/bin
-         chmod a+rx /usr/local/bin/ffmpeg 
-         ffmpeg -encoders
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - name: Downloading tools
-        run: |
-          pip install ffpb rclone
+    - name: Set PATH
+      run: |
+        echo 'export PATH="/usr/local/bin:${PATH}"' >> $HOME/.bashrc
+      shell: bash
 
-      - name: Setup Rclone
-        uses: AnimMouse/setup-rclone@v1
-        with:
-          rclone_config: ${{ secrets.RCLONE_CONFIG }}
+    - name: Downloading tools
+      run: |
+       pip install rclone
+       wget https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x265 -O x265
+       sudo mv -v x265 /usr/local/bin
+       chmod a+rx /usr/local/bin/x265
+       x265 --version
+       
+    - name: Pull Docker Image
+      run: |
+        docker pull helpless69/av1an:latest
+        
+    - name: Download video
+      run: |
+        cd /home/runner && pwd && mkdir encode
+        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/video.mkv" -o video.mkv
 
-      - name: Download video
-        run: |
-          mkdir work
-          cd work && curl "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -o input.mp4
+    - name: Encode
+      run: |
+        cd /home/runner/encode && pwd && ls
+        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm helpless69/av1an:latest -i "video.mkv" -w 4 -target-quality 95 --vmaf --pix-format yuv420p --resume -e x264 -c mkvmerge -v " --crf 21 --preset slow " -o "Output.mkv"
+        
+    - name: Zip
+      run: |
+        rm /home/runner/encode/video.mkv && cd /home/runner && zip -r encode.zip encode
 
-      - name: Encode video
-        run: |
-          cd work && pwd
-          ffpb -i input.mp4 -map 0 -c:v libx265 -crf 24 -preset slow -x265-params "qcomp=0.75:ref=5:psy-rd=2.0:psy-rdoq=2.0:aq-mode=3:aq-strength=0.85:bframes=16:rc-lookahead=80:sar=1:keyint=240:min-keyint=23:rd=4" output.mkv
-          
-      - name: Upload
-        uses: actions/upload-artifact@v3
-        with:
-          name: Upload
-          path: /home/runner/work/bookish-computing-machine/bookish-computing-machine/work/output.mkv
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: Upload
+        path: /home/runner/encode.zip
