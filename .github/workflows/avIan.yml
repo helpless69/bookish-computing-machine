@@ -30,12 +30,19 @@ jobs:
     - name: Download video
       run: |
         cd /home/runner && pwd && mkdir encode
-        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/video.mkv" -o video.mkv
+        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/output.mkv" -o video.mkv
 
     - name: Encode
       run: |
         cd /home/runner/encode && pwd && ls
-        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm helpless69/av1an:latest -i "video.mkv" -w 4 -target-quality 95 --vmaf --pix-format yuv420p10le --resume -e x265 -c mkvmerge -v " --crf 18 --qcomp 0.75 --rc-lookahead 60 --bframes 8 --aq-mode 3 --aq-strength 0.75 --subme 5 --ref 5 --rd 4 --max-merge 5 --rdoq-level 2 --psy-rdoq 2.0 --psy-rd 2.0 --min-keyint 24 --keyint 240 --tu-intra-depth 2 --tu-inter-depth 2 --cbqpoffs -2 --crqpoffs -2 --weightb --no-sao --no-strong-intra-smoothing --no-open-gop --lookahead-slices 0 --output-depth 10 " -o "Output.mkv"
+        docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos helpless69/av1an:test -c "
+        rm -f /usr/bin/x264 && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x264 -o x264 && chmod 777 x264 && \
+        mv -v x264 /usr/bin/x264 && \
+        x264 --version && \
+        rm -f /usr/bin/x265 && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x265 -o x265 && chmod 777 x265 && \
+        mv -v x265 /usr/bin/x265 && \
+        x265 --version && \
+        av1an -i video.mkv -w 2 --target-quality 95 --vmaf --pix-format yuv420p10le --resume -e x265 -c mkvmerge -v ' --crf 18 --qcomp 0.75 --rc-lookahead 60 --bframes 8 --aq-mode 3 --aq-strength 0.75 --subme 5 --ref 5 --rd 4 --max-merge 5 --rdoq-level 2 --psy-rdoq 2.0 --psy-rd 2.0 --min-keyint 24 --keyint 240 --tu-intra-depth 2 --tu-inter-depth 2 --cbqpoffs -2 --crqpoffs -2 --weightb --no-sao --no-strong-intra-smoothing --no-open-gop --lookahead-slices 0 --output-depth 10 ' -o "Output.mkv"
         
     - name: Zip
       run: |
