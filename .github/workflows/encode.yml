@@ -1,4 +1,4 @@
-name: encode
+name: Av1an test
 
 on: workflow_dispatch
 
@@ -8,37 +8,52 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set PATH
       run: |
-        echo 'export PATH="/usr/local/bin:${PATH}"' >> $HOME/.bashrc
+        export PATH="/usr/local/bin:${PATH}"
       shell: bash
 
+    - name: Downloading tools
+      run: |
+       pip install rclone
+       wget https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x265 -O x265
+       sudo mv -v x265 /usr/local/bin
+       chmod a+rx /usr/local/bin/x265
+       wget https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x264 -O x264
+       sudo mv -v x264 /usr/local/bin
+       chmod a+rx /usr/local/bin/x264
+       x264 --version
+       x265 --version
+       
     - name: Pull Docker Image
       run: |
-        docker pull masterofzen/av1an:master
+        docker pull helpless69/av1an:test
         
     - name: Download video
       run: |
-        cd $HOME && pwd && mkdir encode
-        cd $HOME && cd encode && curl "https://share.secretz.workers.dev/2:/split-001.mp4" -o Video.mp4
-    - name: Install Dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y build-essential aom-tools nasm libtool python3-pip cython3 python3 clang autoconf ffmpeg libavformat-dev libavfilter-dev libavdevice-dev
+        mkdir -p /home/runner/encode && cd /home/runner/encode
+        curl -L "https://share.secretz.workers.dev/2:/output.mkv" -o video.mkv
 
     - name: Encode
       run: |
-        cd $HOME && cd encode
-        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t --rm masterofzen/av1an:master --set-thread-affinity 2 -w 2 -i "Video.mp4" --ffmpeg " -map 0 -c:s copy" --concat mkvmerge --force --verbose -e svt-av1 --video-params "--crf 28 --aq-mode 0 --tune 0 --keyint 0 --lookahead 120 --irefresh-type 1 --lp 2 --color-primaries 1 --transfer-characteristics 1 --matrix-coefficients 1 --color-range 0 --enable-overlays 1 --scd 0 --enable-tf 0 --chroma-u-dc-qindex-offset -1 --chroma-u-ac-qindex-offset -1 --chroma-v-dc-qindex-offset -1 --chroma-v-ac-qindex-offset -1 --enable-qm 1 --qm-min 0 --qm-max 15 --preset 6" --pix-format yuv420p10le -a="-c:a aac -ac 2 -b:a 128k" -o "Output.mp4"
+       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos helpless69/av1an:test -c "
+       rm -f /usr/bin/x264 && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x264 -o x264 && chmod 777 x264 && \
+       mv -v x264 /usr/bin/x264 && \
+       x264 --version && \
+       rm -f /usr/bin/x265 && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x265 -o x265 && chmod 777 x265 && \
+       mv -v x265 /usr/bin/x265 && \
+       x265 --version && \
+       whereis SvtAv1EncApp && \
+       av1an -i video.mkv --verbose -w 2 --target-quality 95 --vmaf --resume -e svt-av1 -c mkvmerge -o Output.mkv"
+     
     - name: Zip
       run: |
-        cd $HOME
+        rm /home/runner/encode/video.mkv && cd /home/runner && zip -r encode.zip encode
 
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
         name: Upload
-        path: /home/runner/encode/Output.mp4
-        
+        path: /home/runner/encode.zip
