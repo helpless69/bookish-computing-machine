@@ -33,13 +33,12 @@ jobs:
     - name: Download video
       run: |
         cd /home/runner && pwd && mkdir encode
-        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/output.mkv" -o video.mkv
+        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/output.mkv" -o vid.mkv && ffmpeg -i vid.mkv -codec copy -t 15 video.mkv
 
     - name: Encode
       run: |
         cd /home/runner/encode && pwd && ls
         docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos helpless69/av1an:test -c "
-        x265 --version && \
         rm -f /usr/bin/x264 && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x264 -o x264 && chmod 777 x264 && \
         mv -v x264 /usr/bin/x264 && \
         x264 --version && \
@@ -50,7 +49,7 @@ jobs:
         
     - name: Zip
       run: |
-        rm /home/runner/encode/video.mkv && cd /home/runner && zip -r encode.zip encode
+        rm /home/runner/encode/vid.mkv && cd /home/runner && zip -r encode.zip encode
 
     - name: Upload
       uses: actions/upload-artifact@v3
