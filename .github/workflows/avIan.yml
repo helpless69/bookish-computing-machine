@@ -42,7 +42,7 @@ jobs:
         rm -f /usr/bin/x265 && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x265 -o x265 && chmod 777 x265 && \
         mv -v x265 /usr/bin/x265 && \
         x265 --version && \
-        av1an -i video.mkv -w 2 --target-quality 95 --vmaf --pix-format yuv420p10le --resume -e x265 -c mkvmerge -v ' --crf 24 --qcomp 0.60 --rc-lookahead 120 --bframes 8 --aq-mode 5 --aq-strength 0.80 --subme 5 --ref 5 --rd 4 --max-merge 3 --rdoq-level 2 --psy-rdoq 1.70 --psy-rd 2.0 --min-keyint 24 --keyint 250 --tu-intra-depth 2 --tu-inter-depth 2 --cbqpoffs -2 --crqpoffs -2 --weightb --no-sao --no-strong-intra-smoothing --no-open-gop --lookahead-slices 0 --output-depth 10 ' -o Output.mkv"
+        av1an -i video.mkv -w 2 --vmaf --pix-format yuv420p10le --resume -e x265 -c mkvmerge -v ' --crf 24 --qcomp 0.60 --rc-lookahead 120 --bframes 8 --aq-mode 5 --aq-strength 0.80 --subme 5 --ref 5 --rd 4 --max-merge 3 --rdoq-level 2 --psy-rdoq 1.70 --psy-rd 2.0 --min-keyint 24 --keyint 250 --tu-intra-depth 2 --tu-inter-depth 2 --cbqpoffs -2 --crqpoffs -2 --weightb --no-sao --no-strong-intra-smoothing --no-open-gop --lookahead-slices 0 --output-depth 10 ' -o Output.mkv"
         
     - name: Zip
       run: |
