@@ -26,9 +26,9 @@ jobs:
        chmod a+rx /usr/local/bin/x265
        x265 --version
        
-  #  - name: Pull Docker Image
-  #    run: |
-  #      docker pull helpless69/av1an:test
+    - name: Pull Docker Image
+      run: |
+       docker pull helpless69/av1an:test
         
     - name: Download video
       run: |
