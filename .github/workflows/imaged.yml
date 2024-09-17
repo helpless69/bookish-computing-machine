@@ -14,12 +14,11 @@ jobs:
       run: |
         git clone https://github.com/Helpless69/Av1an
         cd Av1an
-        docker build -t "helpless69/av1an" .
+        docker build -t "helpless69/av1an:test" .
 
     - name: Login to Docker Hub
       run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u helpless69 --password-stdin
 
     - name: Tag and Push Docker Image
       run: |
-        docker tag helpless69/av1an:test
         docker push helpless69/av1an:test
