@@ -1,4 +1,4 @@
-name: Av1an test
+name: encode
 
 on: workflow_dispatch
 
