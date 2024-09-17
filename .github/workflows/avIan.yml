@@ -38,7 +38,7 @@ jobs:
     - name: Encode
       run: |
         cd /home/runner/encode && pwd && ls
-        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t helpless69/av1an:test -i "video.mkv" -w 2 -target-quality 95 --vmaf --pix-format yuv420p10le --resume -e x265 -c mkvmerge -v " --crf 18 --qcomp 0.75 --rc-lookahead 60 --bframes 8 --aq-mode 3 --aq-strength 0.75 --subme 5 --ref 5 --rd 4 --max-merge 5 --rdoq-level 2 --psy-rdoq 2.0 --psy-rd 2.0 --min-keyint 24 --keyint 240 --tu-intra-depth 2 --tu-inter-depth 2 --cbqpoffs -2 --crqpoffs -2 --weightb --no-sao --no-strong-intra-smoothing --no-open-gop --lookahead-slices 0 --output-depth 10 " -o "Output.mkv"
+        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t helpless69/av1an:test -i "video.mkv" -w 2 --target-quality 95 --vmaf --pix-format yuv420p10le --resume -e x265 -c mkvmerge -v " --crf 18 --qcomp 0.75 --rc-lookahead 60 --bframes 8 --aq-mode 3 --aq-strength 0.75 --subme 5 --ref 5 --rd 4 --max-merge 5 --rdoq-level 2 --psy-rdoq 2.0 --psy-rd 2.0 --min-keyint 24 --keyint 240 --tu-intra-depth 2 --tu-inter-depth 2 --cbqpoffs -2 --crqpoffs -2 --weightb --no-sao --no-strong-intra-smoothing --no-open-gop --lookahead-slices 0 --output-depth 10 " -o "Output.mkv"
         
     - name: Zip
       run: |
