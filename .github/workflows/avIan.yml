@@ -25,6 +25,7 @@ jobs:
        sudo mv -v x265 /usr/local/bin
        chmod a+rx /usr/local/bin/x265
        x265 --version
+       lscpu
        
     - name: Pull Docker Image
       run: |
