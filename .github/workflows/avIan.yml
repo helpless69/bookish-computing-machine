@@ -42,7 +42,7 @@ jobs:
         
     - name: Zip
       run: |
-        rm /home/runner/encode/video.mkv && cd /home/runner && zip -r encode.zip encode
+        rm /home/runner/encode/vid.mkv && cd /home/runner && zip -r encode.zip encode
 
     - name: Upload
       uses: actions/upload-artifact@v3
