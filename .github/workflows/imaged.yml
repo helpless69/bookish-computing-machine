@@ -21,6 +21,5 @@ jobs:
 
     - name: Tag and Push Docker Image
       run: |
-        docker tag helpless69/av1an helpless69/av1an:test
-        docker push helpless69/av1an
+        docker tag helpless69/av1an:test
         docker push helpless69/av1an:test
