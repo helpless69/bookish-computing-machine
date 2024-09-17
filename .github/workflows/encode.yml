@@ -45,7 +45,9 @@ jobs:
        rm -f /usr/bin/x265 && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x265 -o x265 && chmod 777 x265 && \
        mv -v x265 /usr/bin/x265 && \
        x265 --version && \
-       whereis SvtAv1EncApp && \
+       rm -f /usr/bin/SvtAv1EncApp && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/SvtAv1EncApp -o SvtAv1EncApp && chmod 777 SvtAv1EncApp && \
+       mv -v SvtAv1EncApp /usr/bin/SvtAv1EncApp && \
+       SvtAv1EncApp --version && \
        av1an -i video.mkv --verbose -w 2 --target-quality 95 --vmaf --resume -e svt-av1 -c mkvmerge -o Output.mkv"
      
     - name: Zip
