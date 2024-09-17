@@ -39,7 +39,7 @@ jobs:
       run: |
         cd /home/runner/encode && pwd && ls
         docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos helpless69/av1an:test -c "
-        sudo apt install libnuma-dev -y
+        sudo apt install libnuma-dev -y && \
         rm -f /usr/bin/x264 && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x264 -o x264 && chmod 777 x264 && \
         mv -v x264 /usr/bin/x264 && \
         x264 --version && \
