@@ -1,7 +1,7 @@
 FROM helpless69/av1an:test
 
 # Install x264
-RUN rm -f /usr/bin/x264 && \
+RUN sudo rm -f /usr/bin/x264 && \
     curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x264 -o x264 && \
     chmod 777 x264 && mv -v x264 /usr/bin/x264
 
