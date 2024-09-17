@@ -40,16 +40,13 @@ jobs:
         cd /home/runner/encode && pwd && ls
         wget https://raw.githubusercontent.com/helpless69/bookish-computing-machine/main/Dockerfile -O Dockerfile
         sudo docker build -t encode:test .
-        while :; do
-          docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t encode:test \
-          -i "video.mkv" --set-thread-affinity 2 -w 2 --vmaf --pix-format yuv420p10le --resume -e x265 -c mkvmerge \
-          -v ' --preset slow --crf 23 --qcomp 0.60 --rc-lookahead 60 --bframes 8 --aq-mode 5 --aq-strength 0.80 \
-          --subme 5 --ref 5 --rd 4 --max-merge 3 --rdoq-level 2 --psy-rdoq 2.0 --psy-rd 2.0 --min-keyint 24 --keyint 250 \
-          --tu-intra-depth 2 --tu-inter-depth 2 --cbqpoffs -2 --crqpoffs -2 --weightb --no-sao --no-strong-intra-smoothing \
-          --no-open-gop --lookahead-slices 0 --output-depth 10 ' -o "Output.mkv" | tee /dev/tty
-          sleep 5
-        done
-
+        timeout 5s docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t encode:test \
+        -i "video.mkv" --set-thread-affinity 2 -w 2 --vmaf --pix-format yuv420p10le --resume -e x265 -c mkvmerge \
+        -v ' --preset slow --crf 23 --qcomp 0.60 --rc-lookahead 60 --bframes 8 --aq-mode 5 --aq-strength 0.80 \
+        --subme 5 --ref 5 --rd 4 --max-merge 3 --rdoq-level 2 --psy-rdoq 2.0 --psy-rd 2.0 --min-keyint 24 --keyint 250 \
+        --tu-intra-depth 2 --tu-inter-depth 2 --cbqpoffs -2 --crqpoffs -2 --weightb --no-sao --no-strong-intra-smoothing \
+        --no-open-gop --lookahead-slices 0 --output-depth 10 ' -o "Output.mkv"
+        
     - name: Zip
       run: |
         rm /home/runner/encode/video.mkv && cd /home/runner && zip -r encode.zip encode
