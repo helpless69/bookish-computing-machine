@@ -40,7 +40,7 @@ jobs:
         cd /home/runner/encode && pwd && ls
         wget https://raw.githubusercontent.com/helpless69/bookish-computing-machine/main/Dockerfile -O Dockerfile
         sudo docker build -t encode:test .
-        docker run --privileged -v "/home/runner/encode":/videos --user root -t encode:test -i "video.mkv" -w 2 --vmaf --pix-format yuv420p10le --resume -e x265 -c mkvmerge -o "Output.mkv"
+        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t encode:test -i "video.mkv" -w 0 -e x265 -c mkvmerge -o "Output.mkv"
         
     - name: Zip
       run: |
