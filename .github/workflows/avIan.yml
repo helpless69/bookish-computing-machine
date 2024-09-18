@@ -33,7 +33,7 @@ jobs:
     - name: Download video
       run: |
         cd /home/runner && pwd && mkdir encode
-        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/ep2.mkv" -o video.mkv
+        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/ep3.mkv" -o video.mkv
 
     - name: Encode
       run: |
@@ -45,7 +45,7 @@ jobs:
         -v ' --crf 24 --qcomp 0.60 --rc-lookahead 60 --bframes 8 --aq-mode 5 --aq-strength 0.80 \
         --subme 5 --ref 5 --rd 4 --max-merge 3 --rdoq-level 2 --psy-rdoq 2.0 --psy-rd 2.0 --min-keyint 24 --keyint 250 \
         --tu-intra-depth 2 --tu-inter-depth 2 --cbqpoffs -2 --crqpoffs -2 --weightb --no-sao --no-strong-intra-smoothing \
-        --no-open-gop --lookahead-slices 0 --output-depth 10 ' -o "ep2.mkv"
+        --no-open-gop --lookahead-slices 0 --output-depth 10 ' -o "ep3.mkv"
         
     - name: Zip
       run: |
