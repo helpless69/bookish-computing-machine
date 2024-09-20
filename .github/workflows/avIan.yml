@@ -33,7 +33,7 @@ jobs:
     - name: Download video
       run: |
         cd /home/runner && pwd && mkdir encode
-        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/ep11.mkv" -o video.mkv
+        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/ep12.mkv" -o video.mkv
 
     - name: Encode
       run: |
