@@ -40,7 +40,7 @@ jobs:
         cd /home/runner/encode && pwd && ls
         wget https://raw.githubusercontent.com/helpless69/bookish-computing-machine/main/Dockerfile -O Dockerfile
         sudo docker build -t encode:test .
-        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t encode:test -i "video.mkv" -w 2 --pix-format yuv420p --resume -e x264 -c mkvmerge -v ' --crf 21.5 --preset slow --no-8x8dct --psy-rd 1.85:0 --no-fast-pskip --deadzone-inter 11 --aq-mode 3 --aq-strength 0.75 --ipratio 1 --pbratio 1 --qcomp 0.75 --vbv-init 1 --qpmax 40 --b-adapt 5 --rc-lookahead 60 --ref 4 --keyint 240 --min-keyint 23 --no-dct-decimate --deblock -1:-1 ' -o "Output.mkv"
+        docker run --privileged -v "/home/runner/encode":/videos --user $(id -u):$(id -g) -t encode:test -i "video.mkv" -w 2 --target-quality 90 --vmaf  --pix-format yuv420p --resume -e x264 -c mkvmerge -v ' --crf 24 --preset slow --no-8x8dct --psy-rd 1.85:0 --no-fast-pskip --deadzone-inter 11 --aq-mode 3 --aq-strength 0.75 --ipratio 1 --pbratio 1 --qcomp 0.75 --vbv-init 1 --qpmax 40 --b-adapt 5 --rc-lookahead 60 --ref 4 --keyint 240 --min-keyint 23 --no-dct-decimate --deblock -1:-1 ' -o "Output.mkv"
         
         
     - name: Zip
