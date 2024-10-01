@@ -41,8 +41,7 @@ jobs:
        wget https://raw.githubusercontent.com/helpless69/bookish-computing-machine/main/Dockerfile -O Dockerfile
        sudo docker build -t encode:test .
        docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t encode:test -c "
-       av1an -i video.mp4 -e svt-av1 --resume --verbose --target-quality 95 --vmaf -v ' --rc 0 --crf 24.0-55.0 --preset 6 --aq-mode 2 --variance-boost-strength 4 --variance-octile 4 --sharpness 2 --frame-luma-bias 100 --enable-dlf 2 --enable-tf 0 --keyint 0 ' -c mkvmerge -o Output.mkv"
-     
+       av1an -i video.mp4 -e svt-av1 --resume --verbose --target-quality 95 --vmaf -v ' --rc 0 --crf 24.0-55.0 --preset 6 --aq-mode 2 --variance-boost-strength 4 --variance-octile 4 --sharpness 2 --frame-luma-bias 100 --enable-dlf 2 --enable-tf 0 --keyint 0 --lookahead 120 --tune 3 ' -c mkvmerge -o Output.mkv"
     - name: Zip
       run: |
         rm /home/runner/encode/video.mp4 && cd /home/runner && zip -r encode.zip encode
