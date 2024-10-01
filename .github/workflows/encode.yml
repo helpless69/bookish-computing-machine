@@ -8,47 +8,38 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     - name: Set PATH
       run: |
-        export PATH="/usr/local/bin:${PATH}"
+        echo 'export PATH="/usr/local/bin:${PATH}"' >> $HOME/.bashrc
       shell: bash
 
     - name: Downloading tools
       run: |
-       pip install rclone
+       sudo curl -L https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz -o /usr/local/bin/ffmpeg.tar.xz
+       sudo tar -xvf /usr/local/bin/ffmpeg.tar.xz -C /usr/local/bin/
+       sudo mv -v /usr/local/bin/ffmpeg-master-latest-linux64-gpl/bin/* /usr/local/bin
+       chmod a+rx /usr/local/bin/ffmpeg
        wget https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x265 -O x265
        sudo mv -v x265 /usr/local/bin
        chmod a+rx /usr/local/bin/x265
-       wget https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x264 -O x264
-       sudo mv -v x264 /usr/local/bin
-       chmod a+rx /usr/local/bin/x264
-       x264 --version
        x265 --version
        
     - name: Pull Docker Image
       run: |
-        docker pull helpless69/av1an:test
+       docker pull helpless69/av1an:test
         
     - name: Download video
       run: |
-        mkdir -p /home/runner/encode && cd /home/runner/encode
-        curl -L "https://share.secretz.workers.dev/2:/output.mkv" -o video.mkv
+        cd /home/runner && pwd && mkdir encode
+        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -o video.mp4
 
     - name: Encode
       run: |
        docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos helpless69/av1an:test -c "
-       rm -f /usr/bin/x264 && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x264 -o x264 && chmod 777 x264 && \
-       mv -v x264 /usr/bin/x264 && \
-       x264 --version && \
-       rm -f /usr/bin/x265 && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/x265 -o x265 && chmod 777 x265 && \
-       mv -v x265 /usr/bin/x265 && \
-       x265 --version && \
-       rm -f /usr/bin/SvtAv1EncApp && curl -L https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/SvtAv1EncApp -o SvtAv1EncApp && chmod 777 SvtAv1EncApp && \
-       mv -v SvtAv1EncApp /usr/bin/SvtAv1EncApp && \
-       SvtAv1EncApp --version && \
-       av1an -i video.mkv --verbose -w 2 --target-quality 95 --vmaf --resume -e svt-av1 -c mkvmerge -o Output.mkv"
+       whereis svt-av1 && \
+       av1an -i video.mp4 --verbose -w 2 --target-quality 95 --vmaf --resume -e svt-av1 -c mkvmerge -o Output.mkv"
      
     - name: Zip
       run: |
