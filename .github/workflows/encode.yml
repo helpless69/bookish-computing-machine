@@ -37,7 +37,10 @@ jobs:
 
     - name: Encode
       run: |
-       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos helpless69/av1an:test -c "
+       cd /home/runner/encode && pwd && ls
+       wget https://raw.githubusercontent.com/helpless69/bookish-computing-machine/main/Dockerfile -O Dockerfile
+       sudo docker build -t encode:test .
+       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t encode:test -c "
        whereis svt-av1 && \
        av1an -i video.mp4 --verbose -w 2 --target-quality 95 --vmaf --resume -e svt-av1 -c mkvmerge -o Output.mkv"
      
