@@ -33,7 +33,7 @@ jobs:
     - name: Download video
       run: |
         cd /home/runner && pwd && mkdir encode
-        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/vid.mkv" -o video.mkv
+        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/split-001.mkv" -o video.mkv
 
     - name: Encode
       run: |
@@ -41,7 +41,7 @@ jobs:
        wget https://raw.githubusercontent.com/helpless69/bookish-computing-machine/main/Dockerfile -O Dockerfile
        sudo docker build -t encode:test .
        docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t encode:test -c "
-       av1an -i video.mkv -e svt-av1 --vmaf -w 2 --set-thread-affinity 2 -v ' --rc 0 --crf 26 --preset 6 --aq-mode 2 --variance-boost-strength 4 --variance-octile 4 --sharpness 2 --enable-dlf 2 --enable-tf 0 --keyint 0 --lookahead 120 --tune 3 --enable-qm 1 --qm-min 0 --qm-max 15 --adaptive-film-grain 1 --film-grain 6 --enable-overlays 0 --enable-cdef 0 --color-primaries 1 --transfer-characteristics 1 --matrix-coefficients 1 ' -c mkvmerge -o Output.mkv"
+       av1an -i video.mkv -e svt-av1 --vmaf -w 2 --set-thread-affinity 2 -v ' --rc 0 --crf 26 --preset 6 --aq-mode 2 --variance-boost-strength 4 --variance-octile 4 --sharpness 2 --frame-luma-bias 100 --enable-dlf 2 --enable-tf 0 --keyint 0 --lookahead 120 --tune 3 --enable-qm 1 --qm-min 0 --qm-max 15 --adaptive-film-grain 1 --film-grain 6 --enable-overlays 0 --enable-cdef 0 --color-primaries 1 --transfer-characteristics 1 --matrix-coefficients 1 ' -c mkvmerge -o Output.mkv"
        
     - name: Zip
       run: |
