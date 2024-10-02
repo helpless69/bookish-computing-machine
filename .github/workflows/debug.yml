@@ -25,11 +25,22 @@ jobs:
         cd /home/runner && pwd && mkdir encode
         cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -o video.mp4
 
+    - name: Versions Check
+      run: |
+       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t fr3akyphantom/vapoursynth-av1an-runtime:latest -c "
+       ffmpeg -hide_banner -version && \
+       aomenc --help && \
+       rav1e --version && \
+       SvtAv1EncApp --version && \
+       vspipe --version && \
+       av1an --version"
+       
+
     - name: Encode
       run: |
        cd /home/runner/encode && pwd && ls
        docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t fr3akyphantom/vapoursynth-av1an-runtime:latest -c "
-       av1an -i video.mp4 -e svt-av1 -c mkvmerge -o Output.mkv"
+       av1an -i video.mp4 -e svt-av1 -c mkvmerge -m lsmash -o Output.mkv"
        
     - name: Zip
       run: |
