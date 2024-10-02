@@ -29,7 +29,7 @@ jobs:
       run: |
        cd /home/runner/encode && pwd && ls
        docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -it fr3akyphantom/vapoursynth-av1an-runtime:latest -c "
-       av1an -i video.mkv -e svt-av1 -c mkvmerge -o Output.mkv"
+       av1an -i video.mp4 -e svt-av1 -c mkvmerge -o Output.mkv"
        
     - name: Zip
       run: |
