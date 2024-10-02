@@ -1,13 +1,10 @@
 name: debug
-on: workflow_dispatch
 
-env:
-  CARGO_TERM_COLOR: always
+on: push
 
 jobs:
-  build:
+  build-tools:
     runs-on: ubuntu-latest
-    timeout-minutes: 9999
 
     steps:
     - name: Checkout Repository
@@ -18,30 +15,28 @@ jobs:
         echo 'export PATH="/usr/local/bin:${PATH}"' >> $HOME/.bashrc
       shell: bash
 
-    - name: setup x265
+       
+    - name: Pull Docker Image
       run: |
-          wget https://share.secretz.workers.dev/2:down/x265
-          sudo mv -v x265 /usr/local/bin && chmod a+rx /usr/local/bin/x265
-          sudo curl -L https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz -o /usr/local/bin/ffmpeg.tar.xz
-          sudo tar -xvf /usr/local/bin/ffmpeg.tar.xz -C /usr/local/bin/
-          sudo mv -v /usr/local/bin/ffmpeg-master-latest-linux64-gpl/bin/* /usr/local/bin
-          chmod a+rx /usr/local/bin/ffmpeg 
-          ffmpeg -encoders
+       docker pull fr3akyphantom/vapoursynth-av1an-runtime:latest
+        
+    - name: Download video
+      run: |
+        cd /home/runner && pwd && mkdir encode
+        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -o video.mp4
 
-    - name: Downloading tools
+    - name: Encode
       run: |
-       pip install ffpb
-    
-    - name: Install Dependencies
+       cd /home/runner/encode && pwd && ls
+       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t fr3akyphantom/vapoursynth-av1an-runtime:latest -c "
+       av1an -i video.mkv -e svt-av1 -c mkvmerge -o Output.mkv"
+       
+    - name: Zip
       run: |
-        sudo apt-get install cmake cmake-curses-gui build-essential yasm
-    
-    - name: Start SSH via ngrok
-      run: wget https://raw.githubusercontent.com/helpless69/ssh2actions/main/ngrok2actions.sh && chmod +x ngrok2actions.sh && bash ngrok2actions.sh
-      env:
-          NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
-          NGROK_REGION: us
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          
+        rm /home/runner/encode/video.mp4 && cd /home/runner && zip -r encode.zip encode
+
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: Upload
+        path: /home/runner/encode.zip
