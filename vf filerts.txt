@@ -1,0 +1,12 @@
+-f " --vf crop=1920:720:0:180 "
+
+-ff "-vf scale=-1:1080"
+
+ -f " -vf crop=1920:800:0:140 "
+
+-f " -an -vf crop=1920:800 "
+
+--sc-downscale-height 720
+-f " -vf "crop=3840:1608:276:276" -s 1920x804 "
+--vmaf-filter " crop=3840:1608:276:276 " --vmaf-res "1920x804"
+
