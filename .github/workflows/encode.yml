@@ -1,6 +1,6 @@
 name: encode
 
-on: push
+on: workflow_dispatch
 
 jobs:
   build-tools:
