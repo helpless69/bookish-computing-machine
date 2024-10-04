@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set PATH
       run: |
@@ -44,7 +44,7 @@ jobs:
       run: |
         rm /home/runner/encode/video.mkv && cd /home/runner && zip -r encode.zip encode
     - name: Upload
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Upload
         path: /home/runner/encode.zip
