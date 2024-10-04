@@ -18,9 +18,6 @@ av1an -i video.mkv -e svt-av1 \
 --sharpness 4 \
 --enable-dlf 2 \
 --enable-tf 0 \
---adaptive-film-grain 1 \
---film-grain 4 \
---film-grain-denoise 0 \
 --keyint 240 \
 --lookahead 120 \
 --tune 3 \
@@ -38,7 +35,9 @@ av1an -i video.mkv -e svt-av1 \
 -c mkvmerge \
 -o Output.mkv
 
-# Encode 2
+# Encode 2 --adaptive-film-grain 1 \
+#          --film-grain 4 \
+#          --film-grain-denoise 0 \
 
 # Remove test clip to save upload bandwidth.
 # rm input.mkv
