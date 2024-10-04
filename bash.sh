@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Encode video using av1an with SVT-AV1 encoder parameters.
-ffmpeg -i video.mkv -c copy -t 65 input.mkv
+
+# Step 1, make test clip and compare size.
+ffmpeg -hide_banner -i video.mkv -c copy -t 65 input.mkv && ls -sh
 
 av1an -i input.mkv -e svt-av1 \
 --photon-noise 2 \
@@ -37,5 +39,7 @@ av1an -i input.mkv -e svt-av1 \
 -c mkvmerge \
 -o Output.mkv
 
+# Remove test clip to save upload bandwidth.
+rm input.mkv
 # Add more encoding commands below if needed, e.g., for more videos
 # av1an -i video2.mkv -e svt-av1 --crf 30 ... -o Output2.mkv
