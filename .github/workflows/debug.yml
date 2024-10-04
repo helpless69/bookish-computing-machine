@@ -23,7 +23,7 @@ jobs:
     - name: Download video
       run: |
         cd /home/runner && pwd && mkdir encode
-        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/split-002.mkv" -o video.mkv && curl "https://raw.githubusercontent.com/helpless69/bookish-computing-machine/refs/heads/main/bash.sh" -o bash.sh
+        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/split-003.mkv" -o video.mkv && curl "https://raw.githubusercontent.com/helpless69/bookish-computing-machine/refs/heads/main/bash.sh" -o bash.sh
         
     - name: Versions Check
       run: |
