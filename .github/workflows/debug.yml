@@ -38,7 +38,7 @@ jobs:
     - name: Encode
       run: |
        cd /home/runner/encode && pwd && ls
-       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t fr3akyphantom/vapoursynth-av1an-runtime:latest -c "bash bash.sh"
+       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t fr3akyphantom/vapoursynth-av1an-runtime:latest -c "./bash.sh"
        
     - name: Zip
       run: |
