@@ -4,6 +4,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+    - name: Setup Rclone
+      uses: AnimMouse/setup-rclone@v1
+      with:
+       rclone_config: ${{ secrets.RCLONE_CONFIG }} 
     - name: Setup upterm session
       uses: lhotari/action-upterm@v1
