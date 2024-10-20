@@ -11,7 +11,7 @@ av1an -i video.mkv -e svt-av1 \
 --set-thread-affinity 2 \
 -m lsmash \
 -v ' --crf 28 \
---preset 5 \
+--preset 6 \
 --frame-luma-bias 60 \
 --variance-boost-strength 1 \
 --variance-octile 5 \
