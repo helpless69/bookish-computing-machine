@@ -15,7 +15,11 @@ jobs:
         echo 'export PATH="/usr/local/bin:${PATH}"' >> $HOME/.bashrc
       shell: bash
 
-       
+    - name: Setup Rclone
+      uses: AnimMouse/setup-rclone@v1
+      with:
+       rclone_config: ${{ secrets.RCLONE_CONFIG }}
+
     - name: Pull Docker Image
       run: |
        docker pull fr3akyphantom/vapoursynth-av1an-runtime:latest
@@ -40,11 +44,7 @@ jobs:
        cd /home/runner/encode && pwd && ls
        docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t fr3akyphantom/vapoursynth-av1an-runtime:latest -c "bash bash.sh"
        
-    - name: Zip
-      run: |
-        rm /home/runner/encode/video.mp4 && cd /home/runner && zip -r encode.zip encode
     - name: Upload
-      uses: actions/upload-artifact@v4
-      with:
-        name: Upload
-        path: /home/runner/encode.zip
+      run: |
+        rm /home/runner/encode/video.mp4 && cd /home/runner && curl https://raw.githubusercontent.com/helpless69/bookish-computing-machine/refs/heads/main/rclone.sh -o rc.sh && bash rc.sh
+    
