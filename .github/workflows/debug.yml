@@ -24,10 +24,10 @@ jobs:
       run: |
        docker pull fr3akyphantom/vapoursynth-av1an-runtime:latest
         
-    - name: Download video
+    - name: Download Script
       run: |
         cd /home/runner && pwd && mkdir encode
-        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/mimk138-001.mkv" -o video.mkv && curl "https://raw.githubusercontent.com/helpless69/bookish-computing-machine/refs/heads/main/bash.sh" -o bash.sh
+        cd /home/runner/encode && pwd && curl "https://raw.githubusercontent.com/helpless69/bookish-computing-machine/refs/heads/main/bash.sh" -o bash.sh
         
     - name: Versions Check
       run: |
