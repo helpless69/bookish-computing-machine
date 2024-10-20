@@ -32,7 +32,7 @@ av1an -i video.mp4 -e svt-av1 \
 --chroma-qm-min 10 \
 --chroma-qm-max 15 ' \
 -c mkvmerge \
--o P6Crf28.mkv
+-o P5Crf28.mkv
 
 
 # Encode 2 --adaptive-film-grain 1 \
