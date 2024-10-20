@@ -23,7 +23,7 @@ jobs:
     - name: Download video
       run: |
         cd /home/runner && pwd && mkdir encode
-        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/DriveLeech/Suits%20S01E01%201080p%20Bluray%20%5BHindi%20DDP2.0%20+%20English%20DD5.1%5D%20x264%20(EbP-Ionicboy).mkv" -o video.mkv && curl "https://raw.githubusercontent.com/helpless69/bookish-computing-machine/refs/heads/main/bash.sh" -o bash.sh
+        cd /home/runner/encode && pwd && curl "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -o video.mp4 && curl "https://raw.githubusercontent.com/helpless69/bookish-computing-machine/refs/heads/main/bash.sh" -o bash.sh
         
     - name: Versions Check
       run: |
@@ -42,7 +42,7 @@ jobs:
        
     - name: Zip
       run: |
-        rm /home/runner/encode/video.mkv && cd /home/runner && zip -r encode.zip encode
+        rm /home/runner/encode/video.mp4 && cd /home/runner && zip -r encode.zip encode
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
