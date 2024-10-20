@@ -11,7 +11,7 @@ av1an -i video.mp4 -e svt-av1 \
 --set-thread-affinity 2 \
 -m lsmash \
 -v ' --crf 28 \
---preset 6 \
+--preset 5 \
 --frame-luma-bias 60 \
 --variance-boost-strength 1 \
 --variance-octile 5 \
