@@ -1,9 +1,12 @@
 #!/bin/bash
 
-# Step 1, make test clip and compare size.
+# Step 1, Download Video.
+curl "https://share.secretz.workers.dev/2:/mimk138-002.mkv" -o video.mkv
+
+# Step 2, make test clip and compare size.
 # ffmpeg -hide_banner -i video.mp4 -c copy -t 300 input.mkv && ls -sh
 
-# Step 2 encode video using av1an with SVT-AV1-PSY encoder parameters.
+# Step 3 encode video using av1an with SVT-AV1-PSY encoder parameters.
 av1an -i video.mkv -e svt-av1 \
 --photon-noise 2 \
 --vmaf \
@@ -32,7 +35,7 @@ av1an -i video.mkv -e svt-av1 \
 --chroma-qm-min 10 \
 --chroma-qm-max 15 ' \
 -c mkvmerge \
--o P5Crf28.mkv
+-o 02.mkv
 
 
 # Encode 2 --adaptive-film-grain 1 \
