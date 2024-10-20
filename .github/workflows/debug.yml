@@ -46,5 +46,5 @@ jobs:
        
     - name: Upload
       run: |
-        rm /home/runner/encode/video.mkv && cd /home/runner && curl https://raw.githubusercontent.com/helpless69/bookish-computing-machine/refs/heads/main/rclone.sh -o rc.sh && bash rc.sh
+        cd /home/runner && curl https://raw.githubusercontent.com/helpless69/bookish-computing-machine/refs/heads/main/rclone.sh -o rc.sh && bash rc.sh
     
