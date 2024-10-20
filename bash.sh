@@ -4,7 +4,7 @@
 # ffmpeg -hide_banner -i video.mp4 -c copy -t 300 input.mkv && ls -sh
 
 # Step 2 encode video using av1an with SVT-AV1-PSY encoder parameters.
-av1an -i video.mp4 -e svt-av1 \
+av1an -i video.mkv -e svt-av1 \
 --photon-noise 2 \
 --vmaf \
 -w 2 \
