@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Step 1, Download Video.
-curl "https://share.secretz.workers.dev/2:/mimk138-002.mkv" -o video.mkv
+curl "https://share.secretz.workers.dev/2:/mimk138-003.mkv" -o video.mkv
 
 # Step 2, make test clip and compare size.
 # ffmpeg -hide_banner -i video.mp4 -c copy -t 300 input.mkv && ls -sh
@@ -35,7 +35,7 @@ av1an -i video.mkv -e svt-av1 \
 --chroma-qm-min 10 \
 --chroma-qm-max 15 ' \
 -c mkvmerge \
--o 02.mkv
+-o 03.mkv
 
 
 # Encode 2 --adaptive-film-grain 1 \
