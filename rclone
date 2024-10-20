@@ -1,1 +1,0 @@
-cd work && rclone copy output.mkv drive:
