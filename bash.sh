@@ -43,4 +43,4 @@ av1an -i video.mkv -e svt-av1 \
 #          --film-grain-denoise 0 \
 
 # Remove test clip to save upload bandwidth.
-# rm input.mkv
+rm video.mkv
