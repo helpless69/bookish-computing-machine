@@ -8,10 +8,13 @@ curl "https://share.secretz.workers.dev/2:/video.mkv" -o video.mkv
 
 # Step 3 encode video using av1an with SVT-AV1-PSY encoder parameters.
 av1an -i vs.vpy -e svt-av1 \
+--photon-noise 2 \
+--vmaf \
 --pix-format yuv420p10le \
 -w 2 \
 --set-thread-affinity 2 \
--v ' --crf 28 \
+-v ' --crf 26 \
+--psy-rd 0.6 \
 --preset 6 \
 --frame-luma-bias 50 \
 --variance-boost-strength 2 \
