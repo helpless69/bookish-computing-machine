@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Step 1, Download Video.
-curl "https://share.secretz.workers.dev/2:/video.mkv" -o video1.mkv
+curl "https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/JIJIAOLIAN%20-%20fansly/videos/Kamisato%20Ayaka%20Cosplay%20Miss%20Kamisato's%20secret%20after%20class%2C%20corner%20of%20the%20desk%20masturbation%2C%20exploring%20the%20mysteries%20of%20life%20with%20her%20favorite%20teacher..mp4" -o video.mkv
 
 # Step 2, make test clip and compare size.
-ffmpeg -hide_banner -i video1.mkv -c copy -map 0 -t 10 video.mkv && ls -sh && rm video1.mkv
+# ffmpeg -hide_banner -i video1.mkv -c copy -map 0 -t 10 video.mkv && ls -sh && rm video1.mkv
 
 # Step 3 encode video using av1an with SVT-AV1-PSY encoder parameters.
 av1an -i vs.vpy -e svt-av1 \
