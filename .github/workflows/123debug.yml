@@ -1,0 +1,50 @@
+name: 123debugtest
+
+on: push
+
+jobs:
+  build-tools:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set PATH
+      run: |
+        echo 'export PATH="/usr/local/bin:${PATH}"' >> $HOME/.bashrc
+      shell: bash
+
+    - name: Setup Rclone
+      uses: AnimMouse/setup-rclone@v1
+      with:
+       rclone_config: ${{ secrets.RCLONE_CONFIG }}
+
+    - name: Pull Docker Image
+      run: |
+       docker pull fr3akyphantom/vapoursynth-av1an-base:latest
+        
+    - name: Download Script
+      run: |
+        cd /home/runner && pwd && mkdir encode
+        cd /home/runner/encode && pwd && curl "https://raw.githubusercontent.com/helpless69/bookish-computing-machine/refs/heads/main/bash.sh" -o bash.sh
+        
+    - name: Versions Check
+      run: |
+       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t fr3akyphantom/vapoursynth-av1an-base:latest -c "
+       ffmpeg -hide_banner -version && \
+       x265 -V && \
+       rav1e --version && \
+       SvtAv1EncApp --version && \
+       vspipe --version && \
+       av1an --version"
+       
+    - name: Encode
+      run: |
+       cd /home/runner/encode && pwd && ls
+       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t fr3akyphantom/vapoursynth-av1an-base:latest -c "bash bash.sh"
+       
+    - name: Upload
+      run: |
+        cd /home/runner && curl https://raw.githubusercontent.com/helpless69/bookish-computing-machine/refs/heads/main/rclone.sh -o rc.sh && bash rc.sh
+    
