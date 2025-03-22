@@ -11,10 +11,11 @@ av1an -i vs.vpy -e svt-av1 \
 --photon-noise 2 \
 --target-quality 85 \
 --vmaf \
+--vmaf-res "1280x720" \
 --pix-format yuv420p10le \
 -w 2 \
 --set-thread-affinity 2 \
--v ' --crf 26 \
+-v ' --crf 28 \
 --preset 6 \
 --frame-luma-bias 50 \
 --variance-boost-strength 2 \
@@ -34,6 +35,7 @@ av1an -i vs.vpy -e svt-av1 \
 --matrix-coefficients 1 \
 --chroma-qm-min 10 \
 --chroma-qm-max 15 ' \
+-a="-c:a libopus -b:a 128k"
 -o encode1.mkv
 
 
