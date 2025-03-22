@@ -7,7 +7,7 @@ curl "https://share.secretz.workers.dev/2:/video.mkv" -o video.mkv
 # ffmpeg -hide_banner -i video.mp4 -c copy -t 300 input.mkv && ls -sh
 
 # Step 3 encode video using av1an with SVT-AV1-PSY encoder parameters.
-av1an -i video.mkv -e svt-av1 \
+av1an -i vs.vpy -e svt-av1 \
 --pix-format yuv420p10le \
 -w 2 \
 --set-thread-affinity 2 \
