@@ -4,7 +4,7 @@
 curl "https://share.secretz.workers.dev/2:/video.mkv" -o video1.mkv
 
 # Step 2, make test clip and compare size.
-ffmpeg -hide_banner -i video.mp4 -c copy -t 300 video.mkv && ls -sh && rm video1.mkv
+ffmpeg -hide_banner -i video1.mkv -c copy -t 300 video.mkv && ls -sh && rm video1.mkv
 
 # Step 3 encode video using av1an with SVT-AV1-PSY encoder parameters.
 av1an -i vs.vpy -e svt-av1 \
