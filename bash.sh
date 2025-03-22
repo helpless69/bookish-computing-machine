@@ -15,7 +15,6 @@ av1an -i vs.vpy -e svt-av1 \
 -w 2 \
 --set-thread-affinity 2 \
 -v ' --crf 26 \
---psy-rd 0.6 \
 --preset 6 \
 --frame-luma-bias 50 \
 --variance-boost-strength 2 \
