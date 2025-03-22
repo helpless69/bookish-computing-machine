@@ -28,6 +28,8 @@ jobs:
       run: |
         cd /home/runner && pwd && mkdir encode
         cd /home/runner/encode && pwd && curl "https://raw.githubusercontent.com/helpless69/bookish-computing-machine/refs/heads/main/bash.sh" -o bash.sh
+        cd /home/runner/encode && pwd && curl "https://raw.githubusercontent.com/helpless69/bookish-computing-machine/refs/heads/main/vs.vpy" -o vs.vpy
+        
         
     - name: Versions Check
       run: |
