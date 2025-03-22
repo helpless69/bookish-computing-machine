@@ -4,7 +4,7 @@
 curl "https://share.secretz.workers.dev/2:/video.mkv" -o video1.mkv
 
 # Step 2, make test clip and compare size.
-ffmpeg -hide_banner -i video1.mkv -c copy -t 10 video.mkv && ls -sh && rm video1.mkv
+ffmpeg -hide_banner -i video1.mkv -c copy -map 0 -t 10 video.mkv && ls -sh && rm video1.mkv
 
 # Step 3 encode video using av1an with SVT-AV1-PSY encoder parameters.
 av1an -i vs.vpy -e svt-av1 \
@@ -41,7 +41,7 @@ av1an -i vs.vpy -e svt-av1 \
 #          --film-grain-denoise 0 \
 
 # Mux all tracks from original video.mkv to encode1.mkv
-mkvmerge -o encode1_muxed.mkv encode1.mkv video.mkv
+mkvmerge -o encode1_muxed.mkv encode1.mkv --no-video video.mkv
 
 # Remove original encode and rename muxed encode.
 rm encode1.mkv
