@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Step 1, Download Video.
-curl "https://share.secretz.workers.dev/2:/video.mkv" -o video.mkv
+curl "https://share.secretz.workers.dev/2:/video.mkv" -o video1.mkv
 
 # Step 2, make test clip and compare size.
-# ffmpeg -hide_banner -i video.mp4 -c copy -t 300 input.mkv && ls -sh
+ffmpeg -hide_banner -i video.mp4 -c copy -t 300 video.mkv && ls -sh && rm video1.mkv
 
 # Step 3 encode video using av1an with SVT-AV1-PSY encoder parameters.
 av1an -i vs.vpy -e svt-av1 \
@@ -40,5 +40,12 @@ av1an -i vs.vpy -e svt-av1 \
 #          --film-grain 4 \
 #          --film-grain-denoise 0 \
 
-# Remove test clip to save upload bandwidth.
+# Mux all tracks from original video.mkv to encode1.mkv
+mkvmerge -o encode1_muxed.mkv encode1.mkv video.mkv
+
+# Remove original encode and rename muxed encode.
+rm encode1.mkv
+mv encode1_muxed.mkv encode1.mkv
+
+# Remove original video.mkv to save upload bandwidth.
 rm video.mkv
