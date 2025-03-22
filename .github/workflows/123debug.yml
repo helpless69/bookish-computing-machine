@@ -22,7 +22,7 @@ jobs:
 
     - name: Pull Docker Image
       run: |
-       docker pull masterofzen/av1an:master
+       docker pull shssoichiro/av1an-ci:latest
         
     - name: Download Script
       run: |
@@ -31,14 +31,14 @@ jobs:
         
     - name: Versions Check
       run: |
-       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t masterofzen/av1an:master -c "
+       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t shssoichiro/av1an-ci:latest -c "
        av1an --version && \
        SvtAv1EncApp --version"
        
     - name: Encode
       run: |
        cd /home/runner/encode && pwd && ls
-       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t masterofzen/av1an:master -c "bash bash.sh"
+       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t shssoichiro/av1an-ci:latest -c "bash bash.sh"
        
     - name: Upload
       run: |
