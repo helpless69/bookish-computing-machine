@@ -22,7 +22,7 @@ jobs:
 
     - name: Pull Docker Image
       run: |
-       docker pull shssoichiro/av1an-ci:latest
+       docker pull shssoichiro/media-runner:latest
         
     - name: Download Script
       run: |
@@ -31,7 +31,7 @@ jobs:
         
     - name: Versions Check
       run: |
-       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t shssoichiro/av1an-ci:latest -c "
+       docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t shssoichiro/media-runner:latest -c "
        av1an --version && \
        SvtAv1EncApp --version"
        
