@@ -11,7 +11,7 @@ av1an -i vs.vpy -e svt-av1 \
 --photon-noise 2 \
 --pix-format yuv420p10le \
 -w 4 \
--v ' --crf 28 \
+-v ' --crf 25 \
 --preset 6 \
 --frame-luma-bias 50 \
 --variance-boost-strength 2 \
@@ -31,7 +31,8 @@ av1an -i vs.vpy -e svt-av1 \
 --matrix-coefficients 1 \
 --chroma-qm-min 10 \
 --chroma-qm-max 15 ' \
--a="-c:a copy"
+-a="-c:a copy" \
+-c mkvmerge \
 -o encode1.mkv
 
 
