@@ -1,5 +1,5 @@
 #!/bin/bash
-pacman -S aria2 -y
+sudo pacman -S aria2 -y
 # Step 1, Download Video.
 aria2c "https://onedrive-cf-index-ng-76f.pages.dev/api/raw?path=/JIJIAOLIAN%20-%20fansly/videos/Kamisato%20Ayaka%20Cosplay%20Miss%20Kamisato's%20secret%20after%20class%2C%20corner%20of%20the%20desk%20masturbation%2C%20exploring%20the%20mysteries%20of%20life%20with%20her%20favorite%20teacher..mp4" -x 16 -s 16 -j 16 -o video.mp4
 
