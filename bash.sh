@@ -18,7 +18,7 @@ av1an -i video.mkv -e svt-av1 \
 --variance-octile 5 \
 --scd 0 \
 --sharpness 1 \
---enable-tf 2 \
+--enable-tf 0 \
 --keyint -1 \
 --lookahead 60 \
 --tune 2 \
