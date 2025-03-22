@@ -31,7 +31,7 @@ av1an -i vs.vpy -e svt-av1 \
 --matrix-coefficients 1 \
 --chroma-qm-min 10 \
 --chroma-qm-max 15 ' \
--o encode1.mkv
+-o encode2.mkv
 
 
 # Encode 2 --adaptive-film-grain 1 \
