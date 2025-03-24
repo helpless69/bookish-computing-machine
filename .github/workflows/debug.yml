@@ -44,7 +44,7 @@ jobs:
        cd /home/runner/encode
        for file in *.mp4; do
          filename="${file%.*}"
-         ab-av1 encode -i "$file" --crf 25 --preset 6 -e libsvtav1 --svt frame-luma-bias=50 --svt variance-boost-strength=2 --svt variance-octile=5 --svt sharpness=1 --svt lookahead=60 --svt tune=3 --svt fast-decode=2 --scd false --svt qp-scale-compress-strength=2 --svt aq-mode=2 --svt psy-rd=0.7 --svt spy-rd=1 --svt film-grain=4 --svt film-grain-denoise=0 --svt enable-qm=1 --svt qm-min=0 --svt qm-min=15 --keyint 10s -o "${filename}_av1.mkv";
+         ab-av1 encode -i "$file" --crf 26.5 --preset 6 -e libsvtav1 --svt frame-luma-bias=50 --svt variance-boost-strength=2 --svt variance-octile=5 --svt sharpness=1 --svt tune=3 --svt fast-decode=2 --scd false --svt qp-scale-compress-strength=2 --svt aq-mode=2 --svt psy-rd=0.7 --svt spy-rd=1 --keyint 10s -o "${filename}_av1.mkv";
          rm "$file";
        done
        rm videos.zip
