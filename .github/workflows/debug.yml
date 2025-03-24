@@ -41,7 +41,7 @@ jobs:
     - name: Encode
       run: |
        cd /home/runner/encode && pwd && ls
-       cd /home/runner/encode && ab-av1 auto-encode -i video.mp4 --min-crf 25 --max-crf 35 --preset 16 -e libsvtav1 --svt frame-luma-bias=50 --svt variance-boost-strength=2 --svt variance-octile=5 --svt sharpness=1 --svt lookahead=60 --svt tune=2 --scd false --keyint 5s --min-vmaf 90
+       cd /home/runner/encode && ab-av1 auto-encode -i video.mp4 --min-crf 25 --max-crf 35 --preset 6 -e libsvtav1 --svt frame-luma-bias=50 --svt variance-boost-strength=2 --svt variance-octile=5 --svt sharpness=1 --svt lookahead=60 --svt tune=2 --scd false --keyint 5s --min-vmaf 90
        cd /home/runner/encode && rm video.mp4
       
     - name: Upload
