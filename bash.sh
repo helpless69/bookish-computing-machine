@@ -1,9 +1,7 @@
 #!/bin/bash
-apt-get install -y aria2
-# If Arch Linux:
-pacman -Syyu --noconfirm && pacman -S aria2 --noconfirm
+pacman -S aria2 --noconfirm
 # Step 1, Download Video.
-aria2c "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -x 16 -s 16 -j 16 -o video.mp4
+wget "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -x 16 -s 16 -j 16 -O video.mp4
 
 # Step 2, make test clip and compare size.
 ffmpeg -hide_banner -i video.mp4 -c copy -map 0 video.mkv && ls -sh && rm video.mp4
