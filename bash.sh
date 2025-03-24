@@ -1,5 +1,5 @@
 #!/bin/bash
-pacman -S aria2 --noconfirm
+
 # Step 1, Download Video.
 wget "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -x 16 -s 16 -j 16 -O video.mp4
 
