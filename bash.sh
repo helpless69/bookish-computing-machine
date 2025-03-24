@@ -24,7 +24,6 @@ for input_file in *.mp4 *.mkv; do
       --qm-min 1 \
       --qm-max 15 \
       --enable-cdef 1 \
-      --enable-cdef 1 \
       --irefresh-type 2 \
       --color-primaries 1 \
       --transfer-characteristics 1 \
