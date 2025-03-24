@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Step 1, Download Video.
-curl "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -x 16 -s 16 -j 16 -O video.mp4
+curl "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -x 16 -s 16 -j 16 -o video.mp4
 
 # Step 2, make test clip and compare size.
 ffmpeg -hide_banner -i video.mp4 -c copy -map 0 video.mkv && ls -sh && rm video.mp4
