@@ -23,20 +23,26 @@ jobs:
     - name: Download Tools
       run: |
         cd /home/runner && pwd && mkdir encode
-        cd /home/runner/encode && pwd && sudo curl -L https://github.com/Uranite/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz -o /usr/local/bin/ffmpeg.tar.xz && sudo tar -xvf /usr/local/bin/ffmpeg.tar.xz -C /usr/local/bin/ && sudo mv -v /usr/local/bin/ffmpeg-master-latest-linux64-gpl/bin/* /usr/local/bin && chmod a+rx /usr/local/bin/ffmpeg
-        cd /home/runner/encode && pwd && sudo curl -L https://github.com/alexheretic/ab-av1/releases/download/v0.9.3/ab-av1-v0.9.3-x86_64-unknown-linux-musl.tar.zst -o ab.tar.zst && sudo apt install zstd tar -qq && unzstd ab.tar.zst && tar -xvf ab.tar && sudo mv -v ab-av1 /usr/local/bin && chmod a+rx /usr/local/bin/ab-av1
-
+        cd /home/runner/encode && sudo curl -L https://github.com/Uranite/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz -o /usr/local/bin/ffmpeg.tar.xz && sudo tar -xvf /usr/local/bin/ffmpeg.tar.xz -C /usr/local/bin/ && sudo mv -v /usr/local/bin/ffmpeg-master-latest-linux64-gpl/bin/* /usr/local/bin && chmod a+rx /usr/local/bin/ffmpeg
+        cd /home/runner/encode && sudo curl -L https://github.com/alexheretic/ab-av1/releases/download/v0.9.3/ab-av1-v0.9.3-x86_64-unknown-linux-musl.tar.zst -o ab.tar.zst && sudo apt install zstd tar -qq && unzstd ab.tar.zst && tar -xvf ab.tar && sudo mv -v ab-av1 /usr/local/bin && chmod a+rx /usr/local/bin/ab-av1
+        cd /home/runner/encode && rm ab.tar && rm ab.tar.zst
+        
     - name: Check Tools
       run: |
        cd /home/runner/encode && pwd
        ffmpeg -version
        ab-av1 --version
        
-       
+    - name: Download Video
+      run: |
+       cd /home/runner/encode && pwd && ls
+       cd /home/runner/encode && aria2c "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -o video.mp4
+
     - name: Encode
       run: |
        cd /home/runner/encode && pwd && ls
-    
+       cd /home/runner/encode && ab-av1 auto-encode -i video.mp4 --min-crf 25 --max-crf 35 --preset 16 -e libsvtav1 --svt frame-luma-bias=50 --svt variance-boost-strength=2 --svt variance-octile=5 --svt sharpness=1 --svt lookahead=60 --svt tune=2 --scd false --keyint 5s --min-vmaf 90
+       cd /home/runner/encode && rm video.mp4
       
     - name: Upload
       run: |
