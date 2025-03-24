@@ -34,8 +34,12 @@ jobs:
     - name: Versions Check
       run: |
        docker run --privileged --user root --entrypoint /bin/bash -v "/home/runner/encode":/videos -t fr3akyphantom/vapoursynth-av1an-runtime:latest -c "
-       av1an --version && \
-       SvtAv1EncApp --version"
+       ffmpeg -hide_banner -version && \
+       x265 -V && \
+       rav1e --version && \
+       SvtAv1EncApp --version && \
+       vspipe --version && \
+       av1an --version"
        
     - name: Encode
       run: |
