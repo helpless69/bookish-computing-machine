@@ -36,13 +36,13 @@ jobs:
     - name: Download Video
       run: |
        cd /home/runner/encode && pwd && ls
-       cd /home/runner/encode && aria2c "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -o video.mp4
+       cd /home/runner/encode && aria2c "https://share.secretz.workers.dev/2:down/Videos.zip" -o videos.zip && unzip videos.zip
 
     - name: Encode
       run: |
        cd /home/runner/encode && pwd && ls
-       cd /home/runner/encode && ab-av1 encode -i video.mp4 --crf 30 --preset 4 -e libsvtav1 --svt frame-luma-bias=50 --svt variance-boost-strength=2 --svt variance-octile=5 --svt sharpness=1 --svt lookahead=60 --svt tune=2 --scd false --keyint 10s
-       cd /home/runner/encode && rm video.mp4
+       cd /home/runner/encode && ab-av1 encode -i /home/runner/encode/*.mp4 --crf 28 --preset 4 -e libsvtav1 --svt frame-luma-bias=50 --svt variance-boost-strength=2 --svt variance-octile=5 --svt sharpness=1 --svt lookahead=60 --svt tune=2 --svt fast-decode=2 --scd false --keyint 10s
+       cd /home/runner/encode && rm videos.zip
       
     - name: Upload
       run: |
