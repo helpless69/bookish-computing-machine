@@ -1,6 +1,6 @@
 name: debug
 
-on: run
+on: workflow_dispatch
 
 jobs:
   build-tools:
