@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo pacman -S aria2 -y
+sudo pacman -S aria2 --noconfirm
 # Step 1, Download Video.
 aria2c "https://share.secretz.workers.dev/2:/Upscale/video.mp4" -x 16 -s 16 -j 16 -o video.mp4
 
